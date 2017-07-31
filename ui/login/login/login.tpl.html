@@ -1,0 +1,28 @@
+<form ng-submit="login.userLogin()" flex="100" layout="column" layout-align="top center">
+    <div flex="20" class="login-container"></div>
+    <div flex="20" class="login-container logo">
+        <md-icon md-svg-src="/images/logo.svg" class="logo"></md-icon>
+    </div>
+    <div class="login-container login-inputs">
+        <md-input-container class="md-icon-float md-block">
+            <label>Username</label>
+            <md-icon md-font-icon="fa fa-user"></md-icon>
+            <input ng-model="login.formData.username" type="text" />
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+            <label>Password</label>
+            <md-icon md-font-icon="fa fa-lock"></md-icon>
+            <input ng-model="login.formData.password" type="password" />
+        </md-input-container>
+    </div>
+    <div class="login-container">
+        <md-button type="submit" class="md-raised md-primary">Sign In</md-button>
+        <p class="forgot-passoword">
+            <small>Forgot Password</small>
+        </p>
+    </div>
+    <div flex></div>
+    <div class="login-container forgot-passoword">
+        <p>&copy; REConnect 2017</p>
+    </div>
+</form>
