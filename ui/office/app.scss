@@ -1,0 +1,168 @@
+@import "../shared-utils/_table-searchable";
+
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url('http://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlJbPFduIYtoLzwST68uhz_Y.woff2');
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+/* New Styles  11/13/2016 */
+main {
+	overflow: scroll;
+}
+
+/* Angular Material Ext */
+.md-1-line {
+	height: auto;
+	min-height: 50px;
+	align-items: flex-start;
+	justify-content: center;
+
+	& > md-icon:first-child {
+		align-self: flex-start;
+	}
+
+	& > div > md-switch {
+		margin: 12px 0;
+	}
+
+	& > div > md-switch > div > span {
+		font-size: 16px;
+	}
+
+	& > .md-list-item-text {
+		flex: 1 1 auto;
+		margin: 16px auto auto;
+		text-overflow: ellipsis;
+		overflow: hidden;
+
+		& > p {
+			font-size: 14px;
+			font-weight: normal;
+			letter-spacing: 0.010em;
+			margin: 0 0 0 0;
+			line-height: 1.6em;
+		}
+
+		& > h3 {
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0.010em;
+			margin: 3px 0 0 0;
+			line-height: 1.2em;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		& > md-input-container {
+			margin: 0;
+
+			input {
+				font-size: 16px;
+				padding-left: 0;
+			}
+
+			.md-errors-spacer {
+				min-height: 0;
+			}
+		}
+	}
+}
+
+md-list-item {
+	md-icon {
+		&.custom-icon-size {
+			&:before {
+				font-size: 20px;
+			}
+		}
+	}
+}
+
+/* Material Design Alteration */
+md-input-container{
+	& > .md-errors-spacer {
+		min-height: 0;
+	}
+}
+
+.md-avatar {
+	border-radius: 50%;
+}
+
+.layout-padding {
+	md-input-container > label {
+		margin-left: 5px;
+	}
+}
+
+
+
+md-sidenav {
+	width: auto;
+
+	.md-button {
+		text-align: left;
+		md-icon {
+			font-size: 22px;
+			margin-right: 5px;
+		}
+
+		width: 100%;
+
+		min-width: 50px;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+		//border-bottom-right-radius: 0px;
+	}
+
+	@media screen and (max-width: 959px){
+		min-width: auto;
+
+
+		md-content {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		.md-button {
+			text-align: center;
+			min-width: 40px;
+			margin: auto;
+		}
+	}
+}
+
+
+/* Md Tab with Switch */
+md-tab-item > div > md-switch {
+	margin: 0;
+}
+
+/* Single Chip */
+.tradeservce-chip {
+	cursor: default;
+	border-radius: 16px;
+	display: block;
+	height: 32px;
+	line-height: 32px;
+	margin: 8px 8px 0 0;
+	padding: 0 12px 0 12px;
+	float: left;
+	box-sizing: border-box;
+	max-width: 100%;
+	position: relative;
+	background: rgb(224,224,224);
+	color: rgb(66,66,66);
+}
+
+.main-header {
+	background-color: #003549;
+}
+
+
