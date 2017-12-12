@@ -1,0 +1,29 @@
+/* line 1, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+.login-container {
+  width: 50%;
+  max-width: 400px; }
+  /* line 4, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+  .login-container.logo {
+    text-align: center; }
+    /* line 6, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+    .login-container.logo > md-icon {
+      width: 100px;
+      height: 100px; }
+  /* line 12, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+  .login-container.login-inputs > md-input-container {
+    padding-left: 22px;
+    margin: 0; }
+    /* line 15, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+    .login-container.login-inputs > md-input-container > label {
+      left: 20px; }
+  /* line 20, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+  .login-container > .md-raised.md-button {
+    border-radius: 20px;
+    width: 100%; }
+
+/* line 25, /Users/Murphy1/Documents/Projects/reconnect/ui/login/app.scss */
+.forgot-password {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.38); }
+
+/*# sourceMappingURL=app.css.map */
