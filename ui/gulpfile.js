@@ -1,0 +1,20 @@
+/* Gulfile */
+
+const gulp = require('gulp'),
+    cleanCSS = require('gulp-clean-css'),
+    concat = require('gulp-concat'),
+    eslint = require('gulp-eslint'),
+    rename = require('gulp-rename'),
+    sass = require('gulp-sass'),
+    uglifyjs = require('uglify-js'),
+    minifier = require('gulp-uglify/minifier'),
+    sourcemaps = require('gulp-sourcemaps'),
+    gulpUtil = require('gulp-util'),
+    gulpif = require('gulp-if'),
+    htmlmin = require('gulp-htmlmin'),
+    gzip = require('gulp-gzip'),
+    clean = require('gulp-clean'),
+    streamqueue = require('streamqueue'),
+    runSequence = require('run-sequence'),
+    ENV = process.env.ENV,
+    isProd = ENV === 'production';
