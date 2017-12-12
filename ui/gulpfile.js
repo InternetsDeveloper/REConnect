@@ -20,12 +20,8 @@ const gulp = require('gulp'),
     isProd = ENV === 'production';
 
 
-/**
- *
- *
+/*
  * Login Gulp Code
- *
- *
  */
 gulp.task('loginVendorJs', () => {
     const minFiles = [
