@@ -146,7 +146,7 @@
                     // 	//$rootScope.app.showCallScripts = !$rootScope.app.showCallScripts;
                     //
                     // 	if($rootScope.app.showCallScripts) {
-                    // 		$state.go('worthClark.customer.list');
+                    // 		$state.go('reConnect.customer.list');
                     // 	}
                     // },
                     goToAdmin: function () {
