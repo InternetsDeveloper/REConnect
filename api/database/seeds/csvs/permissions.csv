@@ -1,0 +1,79 @@
+module|name|system_name|display_name & description|ADSUPR|ADBROK|ADSYST|MGCOMP|MGAGSV|MGCLSV|MGBZDV|MGLEAS|MGMTNC|MGACCT|MGLSEN|STCOMP|STAGSV|STCLSV|STBZDV|STLEAS|STMTNC|STACCT|STLSEN|ACCTEX|AGNTAF|AGNTUN|BUYER|SELLER|TENANT|VENDSA|VENDMT|Notes
+users|Manage Super Admin|user_admin_super|Add/Edit/Delete user type Super Admin|x|||||||||||||||||||||||||||
+users|Manage Brokerage Admin|user_admin_brokerage|Add/Edit/Delete user type Brokerage Admin|x|||||||||||||||||||||||||||
+users|Manage System Admin|user_admin_system|Add/Edit/Delete user type System Admin|x|x||||||||||||||||||||||||||
+users|Manage Managers|user_manager|Add/Edit/Delete user type Manager|x|x|x|||||||||||||||||||||||||
+users|Manage Staff|user_staff|Add/Edit/Delete user type Staff|x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+users|Manage Account Executive|user_accountexecutive|Add/Edit/Delete user type Account Executive|x|x|x| |x||||||||x|||||||||||||||
+users|Manage Affiliated Agent|user_agent_affiliated|Add/Edit/Delete user type Affiliated Agent |x|x|x||x||||||||x|||||||||||||||
+users|Manage Unaffiliated Agents|user_agent_unaffiliated|Add/Edit/Delete user type Unaffiliated Agent|x|x|x||x||||||||x|||||||||||||||
+users|Add user type Contact|user_contact_add|Add user type Contact|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+users|Add user type Sales Vendor|user_vendor_sales_add|Add user type Sales Vendor|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+users|Add user type Maintenance Vendor|user_vendor_maintenance_add|Add user type Maintenance Vendor|x|x|x||||||x||||||||x|||||||||||
+contacts|"Access to ""Contacts"" database"|Contacts_Access|Access to Contacts module|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|View all contacts within the database|Contacts_All_View|View all contacts|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|View user type staff|Contacts_Staff_View|View Staff contact types||||||||||||||||||||x|x|||||||
+contacts|View user type manager|Contacts_Manager_View|View Manager contact types ||||||||||||||||||||x|x|||||||
+contacts|View user type account executive|Contacts_Accountexecutive_View|View Account Executive contact types ||||||||||||||||||||x|x|||||||
+contacts|View user type affiliated agent|Contacts_Agent_ Affiliated_View|View Affiliated Agent contact types||||||||||||||||||||x|x|||||||
+contacts|Export all contacts|Contacts_All_Export|Export all contact types |x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|View contact types buyer if created by user|Contacts_Buyer_owned_View|View contact type buyer, if created by the user| | | | || | | | | | | || | | | | | |x|x|||||||
+contacts|View contact type seller if created by user|Contacts_Seller_owned_View|View contact type seller, if created by the user| | | | || | | | | | | || | | | | | |x|x|||||||
+contacts|View contact type tenant if created by user|Contacts_Tenant_owned_View|View contact type tenant, if created by the user| | | | || | | | | | | || | | |  | | |x|x|||||||
+contacts|View contact type buyer if assigned to, but not created by user|Contacts_Buyer_Assigned_View|View contact type buyer, if assigned to but not created by the user| | | | || | | | | | | || | | | | | | x|x|||||||
+contacts|View contact type seller if assigned to, but not created by user|Contacts_seller_assigned_view|View contact type seller, if assigned to but not created by the user||||||||||||||||||||x|x|||||||
+contacts|View contact type tenant if assigned to, but not created by user|Contacts_tenant_assigned_view|View contact type tenant, if assigned to but not created by the user||||||||||||||||||||x|x|||||||
+contacts|View  vendor within same market|Contacts_vendor_market_view|View only vendors within the same market ||||||||||||||||||||x|x|||||||
+contacts|"View Additional Information ""Page"""|Contacts_Additionalinformation_View|View Additional Information section of the contact detail|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|Edit Additional Information|Contacts_Additionalinformation_Edit|Edit Additional Information section of the contact detail|x|x|x||x|||||x|||x|||||x||||||||||
+contacts|Delete Additional Information|Contacts_Additionalinformation_Delete|Delete information from Additional Informtation section of contact detail|x|x|x||x| ||||x|||x| ||||x||||||||||
+contacts|Manage Documents|Contacts_Documents|Add/View/Delete documents in the Documents section of contact detail|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|Add a Note|Contacts_Note_Add|Add a Note|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Edit own note|Contacts_Note_Own_Edit|User can only edit a note they created| | | | || | | | | | |x||x|x|x|x|x|x|x|x|||||||
+contacts|Edit all notes|Contacts_Note_all_Edit|Ability to edit any note|x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|Delete own note|Contacts_Note_Own_Delete|User can only delete a note they created| | | | || | | | | | |x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Delete note created by another user|Contacts_Note_all_Delete|Ability to delete any note|x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|"View notes marked ""Staff Only"""|Contacts_Notes_Staff_ View|"View notes marked ""Staff only"""|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|"View notes marked ""All"""|Contacts_Notes_All_View|"View notes marked ""All"""|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Manage a headline|Contacts_Headline|Add/Edit/Delete a headline |x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|Impersonate a staff member|Contacts_Staff_Impersonate|Ability to impersonate a staff member|x|x|x|||||||||||||||||||||||||
+contacts|Impersonate an agent user|Contacts_Agent_Affiliated_Impersonate|Ability to impersonate an affiliated agent|x|x|x||x| |||||||x| ||||||||||||||
+contacts|Impersonate an account executive user|Contacts_Accountexecutive_Impersonate|Ability to impersonate an account executive |x|x|x||x| |||||||x| ||||||||||||||
+contacts|Ability to export only contacts user owns|contacts_own_export|User can export only contacts they have created||||||||||||||||||||x|x|||||||
+contacts|Ability to import contacts|contacts_import|Ability to import contacts |x|x|x|x|x|x|x|x|x|x|x|||||||||x|x|||||||
+contacts|Add contact to a marketing campaign|Contacts_Campaign_Add |Add a contact to an active marketing campaign |x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Remove a contact from a marketing campaign|Contacts_Campaign_delete|Remove a contact from a marketing campaign|x|x|x||||x||||||||x|||||x|x|||||||
+contacts|Send a message|Contacts_Message_Send|Send an email from the platform|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|View your own activity log|Contacts_Activity_own_view|User can view their own activity log|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|view activity log of staff|Contacts_Activity_Staff_View|User can view activity log of staff contact types|x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|view activity of affiliated agents|Contacts_actvity_agent_affiliated_view|User can view activity log of affiliated agents contact types|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|View activity log of Account Executives|Contacts_Activity_Accountexecutive_View|User can view activity log of account executive contact types|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+contacts|View activity log of managers|Contacts_Activity_Managers_View|User can view activity log of manager contact types|x|x|x|||||||||||||||||||||||||
+contacts|Manage user type manager|Contacts_Manager|Add/Edit/Delete contact type Manager|x|x|x|||||||||||||||||||||||||
+contacts|Manage user type  Staff|Contacts_Staff|Add/Edit/Delete contact type Staff |x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|Manage user type Account Executive|Contacts_AccountExecutive|Add/Edit/Delete contact type Account Executive|x|x|x||x||||||||x| ||||||||||||||
+contacts|Manage user type Affiliated Agent|Contacts_Agent_Affiliated|Add/Edit/Delete contact type Affiliated Agent|x|x|x||x||||||||x| ||||||||||||||
+contacts|Manage user type Unaffiliated Agent|Contacts_Agent_Unaffiliated|Add/Edit/Delete contact type Unaffiliated Agent|x|x|x||x||||||||x| ||||||||||||||
+contacts|Edit all fields on a contact created by you|Contacts_owned_Edit|User can edit only contacts they created|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|"Cannot edit  ""Assigned to"" field on a non-owned contact"|Contacts_notowned_Assignedto_noedit|"User cannot edit ""Assigned to"" field on a contact they did not create"||||||||||||||||||||x|x|||||||
+contacts|"Cannot edit ""Lead Status"" on a non-owned contact"|Contacts_notowned_Leadstatus_noedit|"User cannot edit ""Lead Status"" field on a contact they did not create"||||x|x|x||x|x|x|x|x|x|x| |x|x|x|x|x|x|||||||
+contacts|"Cannot edit ""Business Dev. Rep"" on a non-owned contact"|Contacts_notowned_businessdevrep_ noedit|"User cannot edit ""Business Dev. Rep"" field on a contact they did not create"||||x|x|x||x|x|x|x|x|x|x||x|x|x|x|x|x|||||||
+contacts|"Cannot edit ""Source"" field on a non-owned contact"|Contacts_notowned_source_noedit|"User cannot edit ""Source"" field on a contact they did not create "||||x|x|x||x|x|x|x|x|x|x||x|x|x|x|x|x|||||||
+contacts|Delete contact created by you|Contacts_owned_Delete|Delete an owned contact | | | | || | | | | | | x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Delete any contact|Contacts_all_Delete|Delete any contact |x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+contacts|Add contact type sales vendor|Contacts_Vendor_Sales_Add|Add contact type sales vendor|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+contacts|Add contact type maintenance vendor|Contacts_Vendor_Maintenance|Add contact type maintenance vendor|x|x|x||||||x||||||||x|||||||||||
+contacts|"Edit field ""Assigned Date"" on contact detail "|Contacts_notowned_assigneddate_edit|"User can edit ""Assigned Date"" field on Contact Detail"|x|x|x||||x||||||||x|||||||||||||
+contacts|"Edit field ""Closed Date"" on contact detail"|Contacts_notowned_closeddate_edit|"User can edit ""Closed Date"" field on Contact Detail"|x|x|x||||x| |||||||x|||||||||||||
+tasks|"Access to ""Tasks"" module"|tasks_access|Access to the Tasks module|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+tasks|View all tasks|tasks_all_view|View all tasks|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+tasks|View tasks assigned to you|tasks_own_view|View tasks created by the user||||||||||||||||||||x|x|||||||
+tasks|View tasks assigned to team members|tasks_team_view|View tasks of team members||||||||||||||||||||x|x|||||||
+tasks|Manage task templates|task_templates|Add, Edit, Delete task templates|x|x|x|x|x|x|x|x|x|x|x|||||||||x|x|||||||
+tasks|Add tasks from a template|task_list_add |Apply a task template|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||
+tasks|Assign a task to all users/groups|tasks_all_assign|Assign a task to any user of the task system|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|||||||||
+tasks|Assign a task only to team members|tasks_team_assign|Assign a task to a team member ||||||||||||||||||||x|x|||||||
+tasks|Delete all tasks|tasks_all_delete|Delete any task |x|x|x|x|x|x|x|x|x|x|x|||||||||||||||||
+tasks|Delete own tasks|tasks_own_delete|Delete only a task user created||||||||||||x|x|x|x|x|x|x|x|x|x|||||||
+tasks|Edit own tasks|tasks_own_edit|Edit only tasks created by the user||||||||||||||||||||x|x|||||||
+tasks|Edit all tasks|tasks_all_edit|Edit any task|x|x|x|x||x|x|x|x|x|x|x||x|x|x|x|x|x|||||||||
