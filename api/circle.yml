@@ -1,0 +1,28 @@
+machine:
+  php:
+    version: 7.0.4
+#  environment:
+#    APP_ENV: testing
+#    APP_KEY: base64:LF59HSl+nzkPzGVmLHvz87N/Mwc6vgEOCxlLdChfMKs=
+#
+#general:
+#  artifacts:
+#    - "reports"
+#
+#dependencies:
+#  pre:
+#    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini # enables xdebug needed for code coverage
+#  override:
+#    # Checks all php files within /app for syntax errors
+#    - tests/commands/phplint.sh
+#    - composer install --prefer-dist --no-interaction
+#    # Run the CS fixer and error if it finds files to update
+#    - tests/commands/php-cs-fixer-check.sh
+#  cache_directories:
+#    - "~/.composer/cache"
+#    - "reports/phplint/.cache"
+#    - "vendor"
+#
+#test:
+#  override:
+#   - vendor/bin/phpunit -d memory_limit=1024M --coverage-clover build/logs/clover.xml

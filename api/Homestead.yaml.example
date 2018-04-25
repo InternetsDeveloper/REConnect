@@ -1,0 +1,20 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /location/of/code/api
+        to: /home/vagrant/api
+sites:
+    -
+        map: api.worthclarkapp.com
+        to: /home/vagrant/api/public
+databases:
+    - homestead
+    - worthclark
+name: api
+hostname: api
