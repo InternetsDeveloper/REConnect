@@ -1,0 +1,60 @@
+<div>
+	<div layout="row" flex="100" layout-align="end center">
+		<md-menu md-position-mode="target-right target">
+			<md-button aria-label="Open Column Menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+				<md-icon md-font-icon="fa fa-bars"></md-icon>
+			</md-button>
+			<md-menu-content width="6">
+				<md-menu-item ng-repeat="column in vm.columns">
+					<md-button ng-click="vm.toggleColumn(column)" aria-label="Click to toggle column {{column.label}}" ng-disabled="vm.columnCount === 5 && !column.show">
+						<div layout="row" flex>
+							<p flex ng-bind="column.label"></p>
+							<md-icon md-menu-align-target md-font-icon="fa fa-check" ng-show="column.show" class="md-primary"></md-icon>
+							<md-icon md-menu-align-target md-font-icon="fa fa-times" ng-hide="column.show" class="md-warn"></md-icon>
+						</div>
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+	<md-table-container class="mdl-shadow--2dp">
+		<table md-table md-progress="vm.progress">
+			<thead md-head md-order="vm.config.order">
+			<tr md-row>
+				<th md-column md-order-by="{{column.key}}" ng-repeat="column in vm.columns" ng-if="column.show">
+					<md-input-container>
+						<label ng-bind="column.label"></label>
+						<input ng-model="column.searchText" ng-disabled="column.disabled" ng-change="vm.setPage()" type="text" ng-click="vm.stopSort($event)" />
+					</md-input-container>
+				</th>
+				<th ng-if="vm.createItem">
+					<md-button class="md-raised md-primary" ng-click="vm.createItem()" aria-label="Click to {{vm.createLabel}}" ng-bind="vm.createLabel"></md-button>
+				</th>
+			</tr>
+			</thead>
+			<tbody md-body>
+			<tr md-row 
+			on-repeat-done 
+			ng-class="{pointer: !vm.config.viewButton}" 
+			ng-repeat="
+			item in (filterResult = (vm.data()
+			 | filter: vm.filters().keys
+			 | orderBy: vm.config.order
+			 | limitTo: vm.config.limit : (vm.config.page - 1) * vm.config.limit))">
+				<td md-cell ng-if="column.show" ng-repeat="column in vm.columns">
+					<div ng-switch="!!column.config">
+						<div ng-switch-when="true" layout="row" layout-align="center center">
+							<div dynamic-template="column.config" content="item[column.key]"></div>
+						</div>
+						<div ng-switch-default>
+							<div ng-bind="item[column.key]"></div>
+						</div>
+					</div>
+				</td>
+				<td md-cell ng-if="vm.config.button" dynamic-template="vm.config.button" content="item"></td>
+			</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<md-table-pagination md-limit="vm.config.limit" md-page="vm.config.page" md-total="{{vm.filters().isEmpty ? vm.data().length : filterResult.length}}" md-page-select="vm.options.pageSelect" md-boundary-links="vm.options.boundaryLinks"></md-table-pagination>
+</div>

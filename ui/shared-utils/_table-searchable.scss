@@ -1,0 +1,25 @@
+md-table-container {
+	width: 100%;
+}
+
+
+table.md-table {
+	> thead > tr > th > md-input-container {
+		margin: 20px 0;
+
+		& > .md-errors-spacer {
+			display: none;
+		}
+	}
+
+	td.md-cell md-checkbox,
+	th.md-column md-checkbox {
+		margin: 15px 0;
+		width: auto;
+	}
+
+	th.md-column md-icon:not(:first-child) {
+		margin-left: -8px;
+	}
+
+}
