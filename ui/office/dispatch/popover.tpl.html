@@ -1,0 +1,43 @@
+<div ng-controller="InfoController as info" class="appt-info-window">
+	<div layout="row" layout-align="space-between flex-start">
+		<div>
+			<ul>
+				<li>
+					{{ parameter.companyName || 'No company name'}}
+				</li>
+				<li>
+					{{ parameter.fullName || 'No full name'}}
+				</li>
+				<li ng-if="parameter.address || debug">
+					<a ng-href="https://maps.google.com/maps/?saddr=My+Location&daddr={{formatAddress(parameter.address)}}" target="_blank">
+						<address>{{ parameter.address || 'No address' }}</address>
+					</a>
+				</li>
+				<li>
+					{{ parameter.mobilePhone || 'No mobile phone'}}
+				</li>
+			</ul>
+		</div>
+		<div>
+			<ul>
+				<li>
+					{{ parameter.requestType || 'No request type' }}
+				</li>
+				<li>
+					{{ parameter.dispatchCode || 'No dispatch code'}}
+				</li>
+				<li>
+					{{ parameter.locationName || 'No location'}}
+				</li>
+				<li>
+					{{ parameter.status || 'No status'}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	<ul layout="column">
+		<li>Booked on {{ parameter.promomiseDate || 'No booked date'}} by {{ parameter.salesPerson || 'No sales person' }}</li>
+		<li>Scheduled for {{ formatDate(parameter.scheduledDate) || 'No scheduled date' }} for {{ formatTime(parameter.scheduledDate) || 'No scheduled time'}}.</li>
+		<li class="notes"><strong>Notes: </strong><span ng-bind="parameter.notes || 'Notes empty'"></span></li>
+	</ul>
+</div>

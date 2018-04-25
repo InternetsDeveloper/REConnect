@@ -1,0 +1,15 @@
+<md-card>
+	<md-card-content layout="row" layout-wrap id="product-upload">
+		<div flex="10">
+			<input id="product-csv" type="file" accept=".csv" ng-show="false" />
+			<md-button class="md-raised md-primary" aria-label="attach_file" ng-click="productUpload.focusFileInput()" ng-disabled="productUpload.showProgress">Choose file</md-button>
+		</div>
+		<md-input-container flex="20" md-no-float>
+			<input ng-model="productUpload.fileName" type="text" placeholder="No file chosen" ng-readonly="true" ng-click="productUpload.focusFileInput()" ng-disabled="productUpload.showProgress" />
+			<div ng-if="productUpload.errorMsg" class="md-input-message-animation" ng-bind="productUpload.errorMsg"></div>
+		</md-input-container>
+		<div flex="100">
+			<md-progress-linear ng-if="productUpload.showProgress" md-mode="determinate" value="{{productUpload.progress}}"></md-progress-linear>
+		</div>
+	</md-card-content>
+</md-card>

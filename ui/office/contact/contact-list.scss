@@ -1,0 +1,49 @@
+// TODO use REMs
+// TODO look at _variables_sccs
+$secondary-text-color: #598EA0;
+$icon-color: #8DA9B4;
+
+.secondary-header {
+	background-color: #003E52;
+}
+
+.secondary-header-text {
+	color: #FFFFFF;
+	padding-left: 1.5rem;
+	font-size: 1.25rem;
+	//position: absolute;
+}
+
+.import {
+	color: #FFFFFF;
+	float: right;
+	padding-right: 0.3125rem;
+}
+
+.icons {
+	color: $icon-color;
+}
+
+.image--cover {
+	width: 3.125rem;
+	height: 3.125rem;
+	border-radius: 50%;
+	margin: 5px;
+}
+
+.border-right {
+	border-right: #0B4A5C;
+	border-right-style: solid;
+	border-right-width: 0.125rem;
+}
+
+.padding {
+	padding-left: 0.625rem;
+	padding-right: 6.25rem;
+}
+
+.search-box {
+	background-color: #0E495B;
+	margin-left: 1.25rem;
+	min-width: 12.5rem;
+}

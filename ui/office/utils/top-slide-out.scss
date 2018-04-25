@@ -1,0 +1,17 @@
+#product-search-quickview {
+  z-index: 2;
+  margin: 8px;
+}
+top-slide-out {
+  
+
+  md-content,
+  & > v-accordion {
+	background-color: #ffffff;
+  }
+
+  & > v-accordion > v-pane > v-pane-header {
+	display: none;
+  }
+
+}

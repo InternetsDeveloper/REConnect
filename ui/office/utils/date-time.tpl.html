@@ -1,0 +1,32 @@
+<div layout="row" layout-align="start start"
+	layout-gt-lg="row" layout-align-gt-lg="start center">
+	<md-input-container flex="50" ng-class="{'md-input-has-value': date}">
+		<mdp-date-picker 
+			name="date"
+			ng-model="date.time" 
+			mdp-min-date="minDate"
+			mdp-placeholder="Date"
+			required>
+			<div ng-messages="formCtrl.date.$error">
+				<div ng-message="valid">The entered value is not a date!</div>
+				<div ng-message="format">Invalid format</div>
+				<div ng-message="required">An appt date is required!</div>
+				<div ng-message="minDate">Date is too early!</div>
+				<div ng-message="maxDate">Date is too late!</div>
+			</div>
+		</mdp-date-picker>
+	</md-input-container>
+	<md-input-container flex="50" ng-class="{'md-input-has-value': date}">
+		<mdp-time-picker 
+			name="time"
+			ng-model="date.time"
+			mdp-auto-switch="true"
+			mdp-placeholder="Time"
+			required>
+			<div ng-messages="formCtrl.time.$error">
+				<div ng-message="required">This is required</div>
+				<div ng-message="format">Invalid format</div>
+			</div>
+		</mdp-time-picker>
+	</md-input-container>
+</div>

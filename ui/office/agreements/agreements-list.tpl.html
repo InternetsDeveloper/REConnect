@@ -1,0 +1,176 @@
+<md-content layout="column">
+	<md-card>
+		<md-card-content class="md-padding" layout="row">
+			<md-input-container flex="35">
+				<label>Search</label>
+				<input type="text" ng-model="agreements.search"/>
+			</md-input-container>
+			<span flex></span>
+			<div>
+				<md-button class="md-raised md-primary" ng-click="agreements.create()">Create Service Agreement</md-button>
+			</div>
+		</md-card-content>
+	</md-card>
+	<md-card>
+		<md-table-container>
+			<table md-table md-progress="agreements.promise">
+				<thead md-head md-order="agreements.tableConfig.order">
+					<tr md-row>
+						<th md-column md-order-by="name">Name</th>
+						<th md-column md-order-by="amount">Amount</th>
+						<th md-column md-order-by="paymentFrequency">Payment Frequency</th>
+						<th md-column md-order-by="discount">Discount</th>
+						<th md-column md-order-by="maxDiscount">Max Discount</th>
+						<th md-column></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row
+						ng-repeat="agreement in agreements.list | filter: agreements.search | orderBy: agreements.tableConfig.order | limitTo: agreements.tableConfig.limit : (agreements.tableConfig.page - 1) * agreements.tableConfig.limit">
+						<td md-cell ng-bind="agreement.name"></td>
+						<td md-cell ng-bind="agreement.amount"></td>
+						<td md-cell ng-bind="agreement.paymentFrequency"></td>
+						<td md-cell ng-bind="agreement.discount"></td>
+						<td md-cell ng-bind="agreement.maxDiscount"></td>
+						<td md-cell>
+							<md-button md-no-ink class="md-primary" ng-click="agreements.edit(agreement.id)">View</md-button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<md-table-pagination md-limit="agreements.tableConfig.limit" md-page="agreements.tableConfig.page" md-total="{{agreements.list.length}}"
+							 md-page-select="agreements.options.pageSelect"
+							 md-boundary-links="agreements.options.boundaryLinks"></md-table-pagination>
+	</md-card>
+</md-content>
+<md-sidenav id="agreement-edit" class="md-sidenav-right md-whiteframe-4dp" md-component-id="edit">
+	<form ng-if="agreements.editing" layout="column" layout-fill name="agreementCreateForm" novalidate
+		  ng-submit="agreementCreateForm.$valid && agreements.submit()">
+		<md-toolbar class="md-theme-light">
+			<h1 class="md-toolbar-tools" ng-bind="agreements.editing.name"></h1>
+		</md-toolbar>
+		<md-content layout-padding ng-init="agreements.formIntegrity.setActiveForm(agreementCreateForm)">
+			<div layout="row" flex layout-wrap>
+				<md-input-container flex="100">
+					<label>Name</label>
+					<input type="text" name="name" ng-model="agreements.editing.name" required/>
+					<div ng-messages="agreementCreateForm.name.$error" role="alert">
+						<div ng-message="required">A name is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex="50">
+					<label>Amount $</label>
+					<input type="number" pattern="\d+(\.\d{2})?" name="amount" ng-model="agreements.editing.amount"/>
+					<div ng-messages="agreementCreateForm.amount.$error" role="alert">
+						<div ng-message="number">You did not enter a valid number</div>
+						<div ng-message-exp="['pattern']">
+							Value must be formatted as 0 or 0.00.
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex="50">
+					<label>Payment Frequency</label>
+					<input type="number" name="paymentFrequency" ng-model="agreements.editing.paymentFrequency" pattern="^\d+$"/>
+					<div ng-messages="agreementCreateForm.paymentFrequency.$error" role="alert">
+						<div ng-message="number">You did not enter a valid number</div>
+						<div ng-message-exp="['pattern']">
+							Value must be formatted as 0.
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex="50">
+					<label>Discount %</label>
+					<input type="number" pattern="\d+(\.\d{2})?" name="discount" ng-model="agreements.editing.discount"/>
+					<div ng-messages="agreementCreateForm.discount.$error" role="alert">
+						<div ng-message="number">You did not enter a valid number</div>
+						<div ng-message-exp="['pattern']">
+							Value must be formatted as 0 or 0.00.
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex="50">
+					<label>Max Discount $</label>
+					<input type="number" pattern="\d+(\.\d{2})?" name="maxDiscount" ng-model="agreements.editing.maxDiscount"/>
+					<div ng-messages="agreementCreateForm.maxDiscount.$error" role="alert">
+						<div ng-message="number">You did not enter a valid number</div>
+						<div ng-message-exp="['pattern']">
+							Value must be formatted as 0 or 0.00.
+						</div>
+					</div>
+				</md-input-container>
+			</div>
+			<md-input-container flex="100">
+				<label>Term/Duration (Months)</label>
+				<input type="number" name="duration" ng-model="agreements.editing.duration" pattern="^\d+$"/>
+				<div ng-messages="agreementCreateForm.duration.$error" role="alert">
+					<div ng-message="number">You did not enter a valid number</div>
+					<div ng-message-exp="['pattern']">
+						Value must be formatted as 0.
+					</div>
+				</div>
+			</md-input-container>
+			<md-input-container flex="100">
+				<label>Notes and links for customer</label>
+				<textarea name="notes" ng-model="agreements.editing.notes" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+			</md-input-container>
+			<md-radio-group flex="100" ng-model="agreements.editing.scheduleStyle">
+				<md-radio-button value="date" class="md-primary">schedule reminder by date</md-radio-button>
+				<md-radio-button value="interval" class="md-primary">schedule reminder by interval(sale date)</md-radio-button>
+			</md-radio-group>
+			<div ng-if="agreements.editing.scheduleStyle">
+				<div ng-if="agreements.editing.scheduleStyle == 'interval'">
+					<p>Interval (Month)</p>
+					<md-slider flex="100" class="md-warn" md-discrete ng-model="agreements.editing.interval" step="1" min="1" max="12"
+							   aria-label="interval"></md-slider>
+				</div>
+				<md-input-container flex="100">
+					<label>How Many Reminders</label>
+					<input type="number" pattern="[0-9]" name="numberOfReminders" ng-model="agreements.editing.numberOfReminders" max="3"/>
+					<div ng-messages="agreementCreateForm.numberOfReminders.$error" role="alert">
+						<div ng-message="number">You did not enter a valid number</div>
+						<div ng-message="max">Maximum of three (3) reminders.</div>
+						<div ng-message-exp="['pattern']">
+							Value must be formatted as 0.
+						</div>
+					</div>
+				</md-input-container>
+				<div id="reminders" layout="row" layout-align="start start" flex="100" ng-repeat="reminder in agreements.reminders() track by $index">
+					<mdp-date-picker
+							name="dateField{{$index}}"
+							ng-init="agreements.editing.reminderDate[$index] = agreements.editing.reminderDate[$index] || agreements.currentDate"
+							ng-model="agreements.editing.reminderDate[$index]"
+							mdp-min-date="agreements.currentDate"
+							mdp-format="M/D"
+							mdp-placeholder="Enter date"
+							required>
+						<div ng-messages="agreementCreateForm['dateField'+$index].$error">
+							<div ng-message="valid">The entered value is not a date!</div>
+							<div ng-message="minDate">Previous days not available!</div>
+							<div ng-message="format">Invalid format</div>
+							<div ng-message="required">Date is required</div>
+						</div>
+					</mdp-date-picker>
+					<md-input-container ng-if="agreements.editing.scheduleStyle === 'interval'" flex="50">
+						<p ng-bind="'Reminder ' + ($index + 1)"></p>
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Label (HVAC etc)</label>
+						<input type="text" name="reminderLabel{{$index}}" ng-model="agreements.editing.reminderLabel[$index]"/>
+					</md-input-container>
+				</div>
+			</div>
+		</md-content>
+		<md-bottom-sheet>
+			<div layout="row" flex="100">
+				<md-button ng-click="agreements.cancel()">Cancel</md-button>
+				<span flex></span>
+				<md-button ng-click="agreements.toggleEdit()" class="md-warn">
+					<md-icon md-font-icon="fa fa-trash-o"></md-icon>
+				</md-button>
+				<span flex></span>
+				<md-button type="submit" class="md-primary" ng-disabled="agreementCreateForm.$invalid">Save</md-button>
+			</div>
+		</md-bottom-sheet>
+	</form>
+</md-sidenav>

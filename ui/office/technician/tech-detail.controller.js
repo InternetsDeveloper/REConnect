@@ -1,0 +1,107 @@
+(function() {
+	'use strict';
+
+	/**
+	 * @memberOf worthClark.technician
+	 * @class worthClark.customer.TechDetailController
+	 *
+	 * @param {IScope} $scope - Angular scope service.
+	 * @param {ILocation} $location - Angular location service.
+	 * @param {IStateService} $state - @see IStateService
+	 * @param {IStateParamsService} $stateParams - @see IStateParamsService
+	 * @param {TechnicianService} TechnicianService - @see TechnicianService
+	 * @param {TechnicianModel} TechnicianModel - @see TechnicianModel
+	 * @param {Validations} Validations - @see Validations
+	 * @param {FormIntegrity} FormIntegrity - @see FormIntegrity
+	 */
+	angular
+		.module('worthClark.technician')
+		.controller('TechDetailController', ['$scope', '$location', '$state', '$stateParams', 'TechnicianService',
+			'TechnicianModel', 'Validations', 'FormIntegrity',
+			function($scope, $location, $state, $stateParams, TechnicianService, TechnicianModel, Validations, FormIntegrity) {
+				var vm = this;
+
+				vm.validation = Validations;
+				vm.formIntegrity = FormIntegrity;
+
+				vm.initializeData = function() {
+					TechnicianService.fetch($stateParams.id).then(function(result) {
+						if(result.data === null) {
+							$location.path('/app/error/404');
+							$location.replace();
+						} else {
+							vm.model = TechnicianModel(result.data);
+							vm.imgSrc = vm.model.avatar || vm.imgSrc;
+						}
+					});
+				};
+
+				if($stateParams.id) {
+					vm.initializeData();
+				} else {
+					vm.model = TechnicianModel({
+						user: {}
+					});
+				}
+
+				vm.save = function() {
+					if($stateParams.id) {
+						TechnicianService.update(vm.model).then(function() {
+							vm.formIntegrity.setPristine();
+							$state.go('worthClark.technician.list', {
+								message: 'success'
+							});
+						});
+					} else {
+						TechnicianService.create(vm.model).then(function() {
+							vm.formIntegrity.setPristine();
+							$state.go('worthClark.technician.list', {
+								message: 'success'
+							});
+						});
+					}
+				};
+
+				vm.cancel = function() {
+					vm.model = TechnicianModel({
+						user: {}
+					});
+					$state.go('worthClark.technician.list');
+				};
+
+				/*
+				 * Image
+				 */
+				vm.uploadFiles = function(file, errFiles) {
+					vm.errFile = errFiles && errFiles[0];
+
+					TechnicianService.uploadImage(file).then(function(response) {
+						vm.imgSrc = 'https://s3.amazonaws.com/tradeserve-app-uploads/' + response.config.data.file.name;
+						vm.model.avatar = 'https://s3.amazonaws.com/tradeserve-app-uploads/' + response.config.data.file.name;
+					});
+				};
+
+				vm.imgSrc = 'https://material.angularjs.org/latest/img/list/25.jpeg?0';
+
+				/*
+				 * Image
+				 */
+				angular.element('#image-upload').on('change', function(evt) {
+					var reader = new FileReader();
+
+					reader.onload = function(event) {
+						vm.imgSrc = event.target.result;
+
+						$scope.$apply();
+
+						vm.image = evt.target.files[0];
+					};
+
+					reader.readAsDataURL(evt.target.files[0]);
+				});
+
+				vm.setImg = function() {
+					angular.element('#image-upload').click();
+				};
+			}]);
+})();

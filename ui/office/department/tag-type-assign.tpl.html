@@ -1,0 +1,63 @@
+<md-card>
+	<md-table-container>
+		<table md-table md-progress="settings.promise">
+			<thead md-head md-order="settings.tableConfig.order">
+			<tr md-row>
+				<th md-column md-order-by="name">Industry/Department</th>
+				<th md-column>Tag Types</th>
+				<th md-column></th>
+			</tr>
+			</thead>
+			<tbody md-body>
+			<tr md-row ng-repeat="department in settings.departments | filter: settings.search | orderBy: settings.tableConfig.order | limitTo: settings.tableConfig.limit : (settings.tableConfig.page - 1) * settings.tableConfig.limit">
+				<td md-cell ng-bind="department.name"></td>
+				<td md-cell>
+					<span ng-repeat="tagType in department.tag_types" ng-bind="tagType.name + ($last ? '' : ', ')"></span>
+				</td>
+				<td md-cell>
+					<md-button md-no-ink class="md-primary" ng-click="settings.edit(department.id)">add/edit types</md-button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<md-table-pagination md-limit="settings.tableConfig.limit" md-page="settings.tableConfig.page" md-total="{{settings.departments.length}}" md-page-select="settings.options.pageSelect" md-boundary-links="settings.options.boundaryLinks"></md-table-pagination>
+</md-card>
+<md-sidenav id="agreement-edit" class="md-sidenav-right md-whiteframe-4dp" md-component-id="edit">
+	<form ng-if="settings.editing.product && settings.tagTypes" name="departmentSettingsForm" layout="column" layout-fill>
+		<md-toolbar class="md-theme-light">
+			<h1 class="md-toolbar-tools">Industry/Department</h1>
+		</md-toolbar>
+		<md-content layout-padding>
+			<div layout="row" layout-sm="column" layout-align="space-around" ng-if="!settings.editing.product || !settings.tagTypes">
+				<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+			</div>
+			<v-accordion class="vAccordion--default" flex="100">
+				<v-pane ng-repeat="type in settings.tagTypes">
+					<v-pane-header>
+						<div layout="row">
+							<md-switch flex="50" ng-model="settings.editing.selected[$index]" aria-label="{{type.name}}"
+									   ng-init="settings.isAssigned($index, type)"
+									   ng-change="settings.typeAssign(settings.editing.selected[$index], type)" ng-click="settings.preventAccordion($event)">
+								<span ng-bind="type.name"></span>
+							</md-switch>
+						</div>
+					</v-pane-header>
+
+					<v-pane-content>
+						<div layout="row" layout-wrap layout-align="end start">
+							<span flex="50" flex-offset="5" class="tradeservce-chip" ng-repeat="tag in type.tags" ng-bind="tag.name"></span>
+						</div>
+					</v-pane-content>
+				</v-pane>
+			</v-accordion>
+		</md-content>
+		<md-bottom-sheet>
+			<div layout="row" flex="100" ng-init="settings.formIntegrity.setActiveForm(departmentSettingsForm)">
+				<md-button ng-click="settings.toggleEdit()" class="md-warn">Cancel</md-button>
+				<span flex></span>
+				<md-button ng-click="settings.save()" class="md-primary">Save</md-button>
+			</div>
+		</md-bottom-sheet>
+	</form>
+</md-sidenav>

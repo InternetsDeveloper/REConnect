@@ -1,0 +1,52 @@
+<md-card class="secondary-header">
+	<h2 class="secondary-header-text" ng-click="contactImporter.logme()">Contact Import</h2>
+</md-card>
+<md-card>
+	<md-card-content layout="row" layout-align="center center">
+		<div flex>
+			<!--<ng-csv-import-->
+					<!--flex-->
+					<!--content="contactImporter.csv.content"-->
+					<!--header="contactImporter.csv.header"-->
+					<!--header-visible="contactImporter.contactImporter.csv.headerVisible"-->
+					<!--separator="contactImporter.csv.separator"-->
+					<!--separator-visible="contactImporter.csv.separatorVisible"-->
+					<!--result="contactImporter.csv.result"-->
+					<!--encoding="contactImporter.csv.encoding"-->
+					<!--encoding-visible="contactImporter.csv.encodingVisible"-->
+					<!--upload-button-label="csv.uploadButtonLabel"-->
+			<!--&gt;-->
+			<!--</ng-csv-import>-->
+			<!--<input type="file" onchange="openFile(event)">-->
+			<md-button class="md-accent md-raised" ng-click="contactImporter.setFile()">Upload</md-button>
+			<!--<input id="csv-upload" type="file" onchange="contactImporter.openFile(event)" accept=".csv" ng-show="false"/>-->
+			<!--<input id="csv-upload" type="file" ngf-select="contactImporter.openFile($file)" accept=".csv" ng-show="true"/>-->
+			<input id="csv-upload" ngf-select="contactImporter.uploadFiles($file, $invalidFiles)" accept="text/plain" ng-show="false"/>
+		</div>
+		<a href="/images/test.csv" download="test.csv" flex="10">Download CSV Import Template</a>
+	</md-card-content>
+
+	<div ng-if="contactImporter.csv.result" layout="column" layout-align="center center">
+		<h3>Import Preview</h3>
+		<h4 class="alert">Please review your import data to ensure that it is correct.</h4>
+		<div>(Preview only shows first 10 rows of data)</div>
+	</div>
+	<md-card>
+		<md-card-content ng-if="contactImporter.csv.result">
+			<div layout="row" layout-align="center center">
+				<div class="preview header" ng-repeat=" header in contactImporter.templateHeaders" ng-bind="header" flex></div>
+			</div>
+			<div layout="row" layout-align="center center" ng-repeat="import in contactImporter.csv.result.slice(0,9)">
+				<div flex ng-bind="import.name  ? import.name: '-'" class="preview"></div>
+				<div flex ng-bind="import.email  ? import.email : '-'" class="preview"></div>
+				<div flex ng-bind="import.age  ? import.age : '-'" class="preview"></div>
+				<div flex ng-bind="import.gender ? import.gender : '-'" class="preview"></div>
+			</div>
+		</md-card-content>
+	</md-card>
+	<div ng-if="contactImporter.csv.result" layout="row" layout-align="center center">
+		<md-button class="md-primary md-raised" ng-click="contactImporter.importContacts()">
+			Import
+		</md-button>
+	</div>
+</md-card>

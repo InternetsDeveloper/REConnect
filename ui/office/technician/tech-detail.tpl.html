@@ -1,0 +1,137 @@
+<form id="technician-form" layout="column" layout-wrap name="technicianCreate" novalidate ng-submit="technicianCreate.$valid && technician.save()">
+	<section flex="100" layout="column" ng-init="technician.formIntegrity.setActiveForm(technicianCreate)">
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Personal Details</h2>
+				</div>
+			</md-toolbar>
+			<md-card-content>
+				<div layout="row">
+					<div layout="row" layout-align="center start" layout-wrap>
+						<img ng-src="{{technician.imgSrc}}" height="100" width="100" alt="Technician Image" class="pointer md-avatar" ng-click="technician.setImg()" />
+						<input id="image-upload" ngf-select="technician.uploadFiles($file, $invalidFiles)" accept="image/*" ng-show="false" />
+					</div>vagrant
+					<div flex layout="row" layout-padding layout-wrap>
+						<md-input-container flex-gt-sm="25" flex="100">
+							<label>First Name</label>
+							<input type="text" required ng-model="technician.model.first" ng-pattern="technician.validation.name.pattern" name="first" maxlength="50"/>
+							<div ng-messages="technicianCreate.first.$error" role="alert">
+								<div ng-message="required">A first name is required.</div>
+								<div ng-message="pattern" ng-bind="technician.validation.name.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container flex-gt-sm="25" flex="100">
+							<label>Last Name</label>
+							<input type="text" required ng-model="technician.model.last" ng-pattern="technician.validation.name.pattern" name="last" maxlength="50"/>
+							<div ng-messages="technicianCreate.last.$error" role="alert">
+								<div ng-message="required">A last name is required.</div>
+								<div ng-message="pattern" ng-bind="technician.validation.name.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container flex-gt-sm="25" flex="100">
+							<label>Username</label>
+							<input type="text" required ng-model="technician.model.username" disabled />
+						</md-input-container>
+						<md-input-container flex-gt-sm="25" flex="100">
+							<label>Primary Phone</label>
+							<input type="tel" ts-phone required ng-model="technician.model.primaryPhone" ng-pattern="technician.validation.phone.pattern" name="primaryPhone" ng-minlength="14" maxlength="20" />
+							<div ng-messages="technicianCreate.primaryPhone.$error" role="alert">
+								<div ng-message="required">A phone number is required.</div>
+								<div ng-message="minlength" ng-bind="technician.validation.phone.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container flex-gt-sm="25" flex="100">
+							<label>Email</label>
+							<input type="email" name="email" required ng-model="technician.model.email" maxlength="70"/>
+							<div ng-messages="technicianCreate.email.$error" role="alert">
+								<div ng-message="required">An email address is required.</div>
+								<div ng-message="email" ng-bind="technician.validation.email.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container flex="100">
+							<label>Biography</label>
+							<textarea ng-model="technician.model.biography" name="bio" ng-pattern="technician.validation.general.pattern" md-maxlength="100" rows="3" md-select-on-focus></textarea>
+							<div ng-messages="technicianCreate.bio.$error" role="alert">
+								<div ng-message="pattern" ng-bind="technician.validation.general.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+	</section>
+	<section flex-gt-sm="50" flex="100" layout="column">
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Approved Product Lines</h2>
+				</div>
+			</md-toolbar>
+			<md-card-content>
+				<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab>
+						<md-tab-label>
+							<div layout="row">
+								<md-switch class="md-primary" ng-model="test" aria-label="Plumbing" flex></md-switch>
+								<span flex>Plumbing</span>
+							</div>
+						</md-tab-label>
+						<md-tab-body>
+							<md-content class="md-padding">
+								<div>
+									<md-checkbox>
+										Service
+									</md-checkbox>
+									<md-checkbox>
+										Install
+									</md-checkbox>
+								</div>
+								<div layout="row">
+									<md-table-container>
+										<table md-table>
+											<thead md-head>
+												<tr md-row>
+													<th md-column>
+														<span class="md-title">Product Line</span>
+													</th>
+													<th md-column>
+														<span class="md-title">Technician Rating</span>
+													</th>
+												</tr>
+											</thead>
+											<tbody md-body>
+												<tr md-row>
+													<td md-cell layout="row">
+														<div flex-gt-sm="50">
+															<md-checkbox aria-label="">
+																Placeholder Text
+															</md-checkbox>
+														</div>
+													</td>
+													<td md-cell>
+														<md-slider class="md-warn" md-discrete ng-model="rating1" step="1" min="1" max="5" aria-label="rating"></md-slider>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</md-table-container>
+								</div>
+							</md-content>
+						</md-tab-body>
+					</md-tab>
+				</md-tabs>
+			</md-card-content>
+		</md-card>
+	</section>
+	<section flex-gt-sm="50" flex="100" layout="column">
+		<md-card>
+			<md-card-content layout="row">
+				<md-button class="md-raised md-warn" ng-click="technician.cancel()">Cancel</md-button>
+				<span flex></span>
+				<md-button class="md-raised">Deactivate</md-button>
+				<md-button class="md-raised md-primary" type="submit" ng-disabled="technicianCreate.$invalid">Save</md-button>
+			</md-card-content>
+		</md-card>
+	</section>
+</form>

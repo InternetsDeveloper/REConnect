@@ -1,0 +1,220 @@
+<form id="product" layout-xs="column" layout-sm="column" layout="row" name="productCreateForm" novalidate ng-submit="productCreateForm.$valid && product.submit()">
+
+	<div flex-xs="100" flex-sm="100" flex="20" ng-if="product.model.department">
+		<md-card>
+			<md-toolbar hide-gt-sm>
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Product Tags</span>
+					</h2>
+					<span flex></span>
+					<md-switch ng-model="product.hideProductTags" aria-label="Switch 1">
+						Hide Toggle
+					</md-switch>
+				</div>
+			</md-toolbar>
+			<md-card-content class="tag-container" layout-lg="row" layout-md="row" layout-wrap layout-align="center start" ng-hide="product.calcHideProductTags()">
+				<md-progress-circular ng-hide="product.tags" md-diameter="96"></md-progress-circular>
+				<div class="tag-list" ng-repeat="dept in product.tags['t' + product.model.department]" flex="100" ng-if="dept.tags.length > 0">
+					<fieldset>
+						<legend ng-bind="dept.name"></legend>
+						<div ng-repeat="tag in dept.tags | limitTo: product.tagLimit[$index] || 5">
+							<md-checkbox class="md-block" ng-model="tag.checked" ng-click="product.chipSet(tag, dept.name)" aria-label="{{tag.name}}">
+								{{tag.name | capitalize}}
+							</md-checkbox>
+						</div>
+						<md-button ng-if="dept.tags.length > 5" class="md-primary" ng-click="product.changeLimit('t' + product.model.department, $index)">
+							Show
+							<span ng-hide="product.tagLimit[$index] > 5">More</span>
+							<span ng-show="product.tagLimit[$index] > 5">Less</span>
+						</md-button>
+					</fieldset>
+				</div>
+
+			</md-card-content>
+		</md-card>
+
+	</div>
+
+	<div flex ng-init="product.formIntegrity.setActiveForm(productCreateForm)">
+		<md-card>
+			<md-card-content>
+
+				<div class="selected-tags" layout="row">
+					<md-chips ng-model="product.chips.data" readonly="product.chips.readOnly" md-removable="product.chips.removable" flex="100">
+						<md-chip-template>
+							<span ng-bind="$chip.name | capitalize"></span>
+						</md-chip-template>
+						<button type="button" md-chip-remove class="md-chip-remove" ng-click="product.chips.remove($chip)">
+							<md-icon md-font-icon="fa fa-close"></md-icon>
+						</button>
+					</md-chips>
+				</div>
+
+				<div layout="row">
+
+					<div layout="row" layout-align="center start" layout-wrap>
+						<img ng-src="{{product.imgSrc}}" height="220" width="220" alt="Product Image" class="pointer mdl-shadow--2dp" ng-click="product.setImg()" />
+						<p class="pointer md-subhead" md-colors="{color:'primary'}" ng-click="product.setImg()">Upload Product Image</p>
+						<input id="image-upload" type="file" accept="image/*" ng-model="product.image" ng-show="false" />
+					</div>
+
+
+					<div flex="80" flex-offset="5">
+						<md-input-container class="md-block">
+							<label>Product Title</label>
+							<textarea required ng-model="product.model.title" name="title" md-select-on-focus></textarea>
+							<div ng-messages="productCreateForm.title.$error" role="alert">
+								<div ng-message="required">A title is required.</div>
+							</div>
+						</md-input-container>
+
+						<div layout="row">
+							<md-input-container flex="33">
+								<label>Allocated Minutes</label>
+								<input ng-model="product.model.allocatedMinutes" name="allocatedMinutes" pattern="^\d+$" />
+								<div ng-messages="productCreateForm.allocatedMinutes.$error" role="alert">
+									<div ng-message-exp="['pattern']">
+										Value must be formatted as 0.
+									</div>
+								</div>
+							</md-input-container>
+							<md-input-container flex="33">
+								<label>Allocated Material Cost</label>
+								<input ng-model="product.model.allocatedMaterialCost" name="allocatedMaterialCost" pattern="{{product.currencyPattern}}" />
+								<div ng-messages="productCreateForm.allocatedMaterialCost.$error" role="alert">
+									<div ng-message-exp="['pattern']">
+										Value must be formatted as 0 or 0.00.
+									</div>
+								</div>
+							</md-input-container>
+							<md-input-container flex="33">
+								<label>Department</label>
+								<md-select required ng-model="product.model.department" ng-change="product.reset()">
+									<md-option ng-repeat="department in product.departments" ng-value="department.id" ng-bind="department.name"  name="department"></md-option>
+								</md-select>
+								<div ng-messages="productCreateForm.department.$error" role="alert">
+									<div ng-message="required">A department is required.</div>
+								</div>
+							</md-input-container>
+						</div>
+
+						<div layout="row">
+							<md-input-container flex="100">
+								<label>Description</label>
+								<textarea ng-model="product.model.description" md-maxlength="500" rows="3" md-select-on-focus></textarea>
+							</md-input-container>
+						</div>
+
+						<div>
+							<md-toolbar class="md-hue-2 accordion-head" ng-click="product.toggleAdvancedOptions()">
+								<p>Advanced Options</p>
+							</md-toolbar>
+							<div class="accordion-body" ng-class="{ slide: product.showAdvancedOptions, 'slide-more': product.model.priceOverride && product.showAdvancedOptions }">
+								<div layout="row" layout-wrap>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Payroll Spiff</label>
+										<input ng-model="product.model.payrollSpiff" />
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Payroll Commission</label>
+										<input ng-model="product.model.payrollCommission" />
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Equipment Fee</label>
+										<input ng-model="product.model.equipmentFee" />
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Miscellaneous Margin</label>
+										<input ng-model="product.model.miscellaneousMargin" />
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Miscellaneous Markup</label>
+										<input ng-model="product.model.miscellaneousMarkup" />
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="30">
+										<label>Video URL</label>
+										<input ng-model="product.model.videoUrl" />
+									</md-input-container>
+									<div flex="100">
+										<md-checkbox ng-model="product.model.priceOverride">
+											Override Price
+										</md-checkbox>
+									</div>
+									<md-input-container flex="100" flex-gt-sm="45" ng-show="product.model.priceOverride">
+										<label>Regular w/ Service Agreement</label>
+										<input ng-model="product.model.regularWithAgreement" name="regularWithAgreement" pattern="{{product.currencyPattern}}" />
+										<div ng-messages="productCreateForm.regularWithAgreement.$error" role="alert">
+											<div ng-message-exp="['pattern']">
+												Value must be formatted as 0 or 0.00.
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="45" ng-show="product.model.priceOverride">
+										<label>Regular w/o Service Agreement</label>
+										<input ng-model="product.model.regularWithOutAgreement" name="regularWithOutAgreement" pattern="{{product.currencyPattern}}" />
+										<div ng-messages="productCreateForm.regularWithOutAgreement.$error" role="alert">
+											<div ng-message-exp="['pattern']">
+												Value must be formatted as 0 or 0.00.
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="45" ng-show="product.model.priceOverride">
+										<label>While We're Here w/ Service Agreement</label>
+										<input ng-model="product.model.whileHereWithAgreement" name="whileHereWithAgreement" pattern="{{product.currencyPattern}}" />
+										<div ng-messages="productCreateForm.whileHereWithAgreement.$error" role="alert">
+											<div ng-message-exp="['pattern']">
+												Value must be formatted as 0 or 0.00.
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container flex="100" flex-gt-sm="45" ng-show="product.model.priceOverride">
+										<label>While We're Here w/o Service Agreement</label>
+										<input ng-model="product.model.whileHereWithOutAgreement" name="whileHereWithOutAgreement" pattern="{{product.currencyPattern}}" />
+										<div ng-messages="productCreateForm.whileHereWithOutAgreement.$error" role="alert">
+											<div ng-message-exp="['pattern']">
+												Value must be formatted as 0 or 0.00.
+											</div>
+										</div>
+									</md-input-container>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<md-table-container class="mdl-shadow--2dp">
+					<table md-table>
+						<thead md-head>
+							<tr md-row>
+								<th md-column>Price Options</th>
+								<th md-column>Service Agreement</th>
+								<th md-column>Without Agreement</th>
+							</tr>
+						</thead>
+						<tbody md-body>
+							<tr md-row>
+								<td md-cell>Regular</td>
+								<td md-cell ng-bind="product.model.regularWithAgreement">$0.00</td>
+								<td md-cell ng-bind="product.model.regularWithOutAgreement">$0.00</td>
+							</tr>
+							<tr md-row>
+								<td md-cell>While We're Here</td>
+								<td md-cell ng-bind="product.model.whileHereWithAgreement">$0.00</td>
+								<td md-cell ng-bind="product.model.whileHereWithOutAgreement">$0.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</md-table-container>
+
+				<div layout="row" layout-align="end center">
+					<md-button class="md-raised md-warn md-hue-2" ui-sref="worthClark.product.search" ng-diable="product.isSaving">Cancel</md-button>
+					<md-button class="md-raised md-primary" type="submit" ng-disabled="productCreateForm.$invalid || product.chips.data.length === 0 || product.isSaving">Save</md-button>
+				</div>
+
+			</md-card-content>
+		</md-card>
+	</div>
+
+</form>

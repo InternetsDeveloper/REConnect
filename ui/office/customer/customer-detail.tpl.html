@@ -1,0 +1,521 @@
+<div layout="row" layout-wrap>
+	<section flex="50" layout="column">
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Customer Information</h2>
+				</div>
+			</md-toolbar>
+			<md-card-content>
+				<form id="customer-create" layout-wrap name="customerForm" novalidate ng-submit="customerForm.$valid && customer.submit()">
+					<div layout="row" ng-init="customer.formIntegrity.setActiveForm(customerForm)">
+						<md-input-container class="md-block" flex="50">
+							<label>First Name</label>
+							<input required ng-model="customer.model.firstName" ng-pattern="customer.validation.name.pattern" name="firstName"
+								   maxlength="50" focusauto />
+							<div ng-messages="customerForm.firstName.$error" role="alert">
+								<div ng-message="required">A first name is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.name.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex="50">
+							<label>Last Name</label>
+							<input required ng-model="customer.model.lastName" ng-pattern="customer.validation.name.pattern" name="lastName"
+								   maxlength="50"/>
+							<div ng-messages="customerForm.lastName.$error" role="alert">
+								<div ng-message="required">A last name is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.name.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50">
+							<label>Company Name</label>
+							<input ng-model="customer.model.companyName" ng-pattern="customer.validation.general.pattern"
+								   name="companyName" maxlength="70"/>
+							<div ng-messages="customerForm.companyName.$error" role="alert">
+								<div ng-message="pattern" ng-bind="customer.validation.general.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container ng-if="customer.model.companyName && customer.request.customerId" class="md-block" flex="50">
+							<md-checkbox ng-model="customer.model.contractRate">
+								With Contract Rate
+							</md-checkbox>
+						</md-input-container>
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50">
+							<label>Phone Number</label>
+							<input type="tel" ts-phone required ng-model="customer.model.mobilePhone" name="mobilePhone"
+								   ng-minlength="10" maxlength="20"/>
+							<div ng-messages="customerForm.mobilePhone.$error" role="alert">
+								<div ng-message="required">A phone number is required.</div>
+								<div ng-message="minlength" ng-bind="customer.validation.phone.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex="50">
+							<label>Email</label>
+							<input type="email" ng-model="customer.model.email" name="email" maxlength="70"/>
+							<div ng-messages="customerForm.email.$error" role="alert">
+								<div ng-message="email" ng-bind="customer.validation.email.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50" ng-show="customer.model.mobilePhone">
+							<label>Alternate Phone Number</label>
+							<input type="tel" ts-phone ng-model="customer.model.homePhone" name="homePhone"
+								   ng-minlength="10" maxlength="20"/>
+							<div ng-messages="customerForm.homePhone.$error" role="alert">
+								<div ng-message="minlength" ng-bind="customer.validation.phone.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex="50" ng-show="customer.model.email">
+							<label>Alternate Email</label>
+							<input type="email" ng-model="customer.model.alternateEmail" name="alternateEmail" maxlength="70"/>
+							<div ng-messages="customerForm.alternateEmail.$error" role="alert">
+								<div ng-message="email" ng-bind="customer.validation.email.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" ng-if="customer.request.customerId === null">
+						<md-input-container class="md-block" flex="50">
+							<label>Service Address</label>
+							<input autocomplete="off" required ng-model="customer.model.serviceAddresses.street"
+								   ng-pattern="customer.validation.street.pattern"
+								   name="serviceStreet" maxlength="70" google-place fields="customer.model.serviceAddresses"/>
+							<div ng-messages="customerForm.serviceStreet.$error" role="alert">
+								<div ng-message="required">A street is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.street.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>City</label>
+							<input required ng-model="customer.model.serviceAddresses.city" ng-pattern="customer.validation.city.pattern"
+								   name="serviceCity" maxlength="50"/>
+							<div ng-messages="customerForm.serviceCity.$error" role="alert">
+								<div ng-message="required">A city is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.city.message"></div>
+							</div>
+						</md-input-container>
+						<md-autocomplete
+								flex="16"
+								md-input-name="serviceState"
+								md-selected-item="customer.model.serviceAddresses.state"
+								md-search-text="customer.usStates.serviceSearchText"
+								md-items="item in customer.usStates.querySearch(customer.usStates.serviceSearchText)"
+								md-item-text="item.abbreviation"
+								md-min-length="2"
+								md-floating-label="State/Province"
+								md-match-case-insensitive="true"
+								md-select-on-match
+								md-require-match
+								required>
+							<md-item-template>
+								<span md-highlight-text="customer.usStates.serviceSearchText" md-highlight-flags="^i">{{item.name}}</span>
+							</md-item-template>
+							<md-not-found>
+								No states matching "{{customer.usStates.serviceSearchText}}" were found.
+							</md-not-found>
+							<div ng-messages="customerForm.serviceState.$error" role="alert">
+								<div ng-message="required">A state is required.</div>
+								<div ng-message="md-require-match" ng-bind="customer.validation.state.message"></div>
+							</div>
+						</md-autocomplete>
+						<md-input-container class="md-block" flex="16">
+							<label>Postal Code</label>
+							<input required ng-model="customer.model.serviceAddresses.zip" name="serviceZip" maxlength="10"
+								   ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/"/>
+							<div ng-messages="customerForm.serviceZip.$error" role="alert">
+								<div ng-message="required">A zip is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.zip.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" layout-align="start center" ng-if="customer.request.customerId === null">
+						<md-input-container flex="50">
+							<label>Service Address Location</label>
+							<md-select ng-model="customer.model.serviceAddresses.location">
+								<md-option ng-repeat="location in customer.locations" ng-value="location.id" ng-bind="location.name"></md-option>
+							</md-select>
+						</md-input-container>
+						<span flex></span>
+						<md-checkbox ng-click="customer.copyAddress()">
+							Copy to Billing Address
+						</md-checkbox>
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50">
+							<label>Billing Address</label>
+							<input required ng-model="customer.model.billingAddresses.street"
+								   ng-pattern="customer.validation.street.pattern"
+								   name="street" maxlength="70" google-place fields="customer.model.billingAddresses"/>
+							<div ng-messages="customerForm.street.$error" role="alert">
+								<div ng-message="required">A street is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.street.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>City</label>
+							<input required ng-model="customer.model.billingAddresses.city" ng-pattern="customer.validation.city.pattern"
+								   name="city" maxlength="50"/>
+							<div ng-messages="customerForm.city.$error" role="alert">
+								<div ng-message="required">A city is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.city.message"></div>
+							</div>
+						</md-input-container>
+						<md-autocomplete
+								flex="16"
+								md-input-name="state"
+								md-selected-item="customer.model.billingAddresses.state"
+								md-search-text="customer.usStates.searchText"
+								md-items="item in customer.usStates.querySearch(customer.usStates.searchText)"
+								md-item-text="item.abbreviation"
+								md-min-length="2"
+								md-floating-label="State/Province"
+								md-match-case-insensitive="true"
+								md-select-on-match
+								md-require-match
+								required>
+							<md-item-template>
+								<span md-highlight-text="customer.usStates.searchText" md-highlight-flags="^i">{{item.name}}</span>
+							</md-item-template>
+							<md-not-found>
+								No states or provinces matching "{{customer.usStates.searchText}}" were found.
+							</md-not-found>
+							<div ng-messages="customerForm.state.$error" role="alert">
+								<div ng-message="required">A state or province is required.</div>
+								<div ng-message="md-require-match" ng-bind="customer.validation.state.message"></div>
+							</div>
+						</md-autocomplete>
+						<md-input-container class="md-block" flex="16">
+							<label>Postal Code</label>
+							<input required ng-model="customer.model.billingAddresses.zip" name="zip" maxlength="10"
+								   ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/"/>
+							<div ng-messages="customerForm.zip.$error" role="alert">
+								<div ng-message="required">A postal code is required.</div>
+								<div ng-message="pattern" ng-bind="customer.validation.zip.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" ng-if="customer.request.customerId">
+						<md-input-container flex="50">
+							<label>Rate Type</label>
+							<md-select ng-model="customer.model.type.id">
+								<md-option ng-repeat="type in customer.customerTypes.rate_types" ng-value="type.id" ng-bind="type.name"></md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex="50">
+							<md-checkbox ng-model="customer.model.ableToBill" ng-true-value="1" ng-false-value="0">
+								Able to Bill
+							</md-checkbox>
+						</md-input-container>
+					</div>
+					<div flex="100" layout="row" layout-align="end center">
+						<md-button class="md-raised md-warn md-hue-2" ui-sref="worthClark.customer.list">Cancel</md-button>
+						<md-button class="md-raised md-primary" type="submit" ng-disabled="customerForm.$invalid || !customerForm.$dirty">Save</md-button>
+					</div>
+				</form>
+			</md-card-content>
+		</md-card>
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Service Agreements</h2>
+				</div>
+			</md-toolbar>
+			<md-card-content ng-if="customer.request.customerId">
+
+			</md-card-content>
+		</md-card>
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Customer Notes</h2>
+				</div>
+			</md-toolbar>
+			<md-card-content ng-if="customer.request.customerId">
+				<small class="text-primary pointer" ng-click="customer.toggleAddNotes()">
+					<md-button ng-hide="customer.showAddNotes">add</md-button>
+				</small>
+				<form class="form-horizontal row" name="newNote" ng-if="customer.showAddNotes" ng-submit="customer.addNote(newNote)">
+					<div layout="row">
+						<md-input-container flex="100">
+							<label>Notes</label>
+							<textarea id="note-text" name="text" ng-model="text" rows="3" md-select-on-focus required></textarea>
+						</md-input-container>
+					</div>
+					<div flex="100" layout="row" layout-align="end center">
+						<md-button class="md-raised md-warn md-hue-2" ng-show="customer.showAddNotes">Cancel</md-button>
+						<md-button class="md-raised md-primary" type="submit" ng-disabled="newNote.$invalid">Save</md-button>
+					</div>
+				</form>
+				<div flex>
+					<md-card ng-repeat="note in customer.notes">
+						<md-card-content>
+							<span ng-bind="note.datetime"></span>
+							<span ng-bind="note.user"></span>
+							<br />
+							<span ng-bind="note.text"></span>
+						</md-card-content>
+					</md-card>
+				</div>
+			</md-card-content>
+		</md-card>
+	</section>
+	<section flex="50" layout="column">
+		<md-card ng-show="customer.showServiceRequestBuilder" id="service-request">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>New Service Request</h2>
+					<span flex></span>
+				</div>
+			</md-toolbar>
+			<md-card-content ng-if="customer.request.customerId">
+				<div layout="column">
+					<div ng-hide="customer.showServiceAddressForm">
+						<div layout="row">
+							<md-input-container class="md-block" flex="80">
+								<label>Search for a service address</label>
+								<input name="search" ng-model="customerDetail.search" />
+							</md-input-container>
+							<div>
+								<md-button ng-hide="customer.showServiceAddressForm" ng-click="customer.toggleServiceAddressForm()">Create Service Address</md-button>
+							</div>
+						</div>
+						<div layout="column">
+							<md-radio-group ng-model="customer.request.addressId" name="address">
+								<p>
+									<strong>Select service request address:</strong>
+								</p>
+								<div layout="row">
+									<div flex="65"><strong>Address</strong></div>
+									<div flex="5"></div>
+									<div flex="20"><strong>Location</strong></div>
+									<div flex="10"></div>
+								</div>
+								<br />
+								<div layout="row" ng-repeat="address in customer.model.serviceAddresses || [] | filter: customerDetail.search | limitTo: customer.addressLimit || 5">
+									<md-radio-button ng-value="address.id" flex="65">
+										<div >
+											<span ng-bind-html="address.street"></span>
+											<span ng-if="address.street_two" ng-bind-html="address.street_two"></span>
+											<span ng-bind-html="address.city"></span>,
+											<span ng-bind-html="address.state"></span>
+											<span ng-bind-html="address.zip"></span>
+										</div>
+									</md-radio-button>
+									<span flex="5"></span>
+									<span flex="20" ng-bind-html="address.location.name"></span>
+									<span flex="5"></span>
+									<md-icon class="pointer" md-font-icon="fa fa-pencil" ng-click="customer.editServiceAddress(address)"></md-icon>
+								</div>
+							</md-radio-group>
+							<md-button flex="100" ng-if="customer.model.serviceAddresses.length > 5" class="md-primary" ng-click="customer.changeLimit()">
+								Show
+								<span ng-hide="customer.addressLimit > 5">More</span>
+								<span ng-show="customer.addressLimit > 5">Less</span>
+							</md-button>
+						</div>
+					</div>
+
+					<form layout-gt-md="row" layout="column" layout-wrap name="serviceAddressForm" novalidate ng-submit="customer.addNewServiceAddress(serviceAddressForm)" ng-if="customer.showServiceAddressForm">
+						<div layout="row" flex="100" ng-init="customer.formIntegrity.setActiveForm(serviceAddressForm)">
+							<md-input-container class="md-block" flex="50">
+								<label>Line 1</label>
+								<input required ng-model="customer.newServiceAddress.street" name="street" ng-pattern="customer.validation.street.pattern" maxlength="70" google-place fields="customer.newServiceAddress" />
+								<div ng-messages="serviceAddressForm.street.$error" role="alert">
+									<div ng-message="required">A street is required.</div>
+									<div ng-message="pattern" ng-bind="customer.validation.street.message"></div>
+								</div>
+							</md-input-container>
+							<md-input-container class="md-block" flex="50">
+								<label>Line 2</label>
+								<input ng-model="customer.newServiceAddress.street_two" name="street_two" ng-pattern="customer.validation.street_two.pattern" maxlength="70"/>
+								<div ng-messages="serviceAddressForm.street_two.$error" role="alert">
+									<div ng-message="pattern" ng-bind="customer.validation.street.message"></div>
+								</div>
+							</md-input-container>
+						</div>
+						<div layout="row" flex="100">
+							<md-input-container class="md-block" flex="50">
+								<label>City</label>
+								<input required ng-model="customer.newServiceAddress.city" name="city" ng-pattern="customer.validation.city.pattern" maxlength="50"/>
+								<div ng-messages="serviceAddressForm.city.$error" role="alert">
+									<div ng-message="required">A city is required.</div>
+									<div ng-message="pattern" ng-bind="customer.validation.city.message"></div>
+								</div>
+							</md-input-container>
+							<md-autocomplete
+								md-input-name="serviceState"
+								md-selected-item="customer.newServiceAddress.state"
+								md-search-text="customer.usStates.searchServiceText"
+								md-items="item in customer.usStates.querySearch(customer.usStates.searchServiceText)"
+								md-item-text="item.abbreviation"
+								md-min-length="2"
+								md-floating-label="State"
+								md-select-on-match
+								md-require-match
+								md-match-case-insensitive="true"
+								required>
+								<md-item-template>
+									<span md-highlight-text="customer.usStates.searchServiceText" md-highlight-flags="^i">{{item.name}}</span>
+								</md-item-template>
+								<md-not-found>
+									No states matching "{{customer.usStates.searchServiceText}}" were found.
+								</md-not-found>
+								<div ng-messages="serviceAddressForm.serviceState.$error" role="alert">
+									<div ng-message="required">A state is required.</div>
+									<div ng-message="md-require-match" ng-bind="customer.validation.state.message"></div>
+								</div>
+							</md-autocomplete>
+
+							<md-input-container class="md-block" flex="25">
+								<label>Zip</label>
+								<input required ng-model="customer.newServiceAddress.zip" name="zip" ng-pattern="customer.validation.zip.pattern" maxlength="10"/>
+								<div ng-messages="serviceAddressForm.zip.$error" role="alert">
+									<div ng-message="required">A zip is required.</div>
+									<div ng-message="pattern" ng-bind="customer.validation.zip.message"></div>
+								</div>
+							</md-input-container>
+						</div>
+						<div flex="100" layout="row">
+							<md-input-container flex="100">
+								<label>Service Address Location</label>
+								<md-select ng-model="customer.newServiceAddress.location.id">
+									<md-option ng-repeat="location in customer.locations" ng-value="location.id" ng-bind="location.name"></md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div flex="100" layout="row" layout-align="end center">
+							<md-button class="md-raised md-warn md-hue-2" ng-click="customer.toggleServiceAddressForm()">Cancel</md-button>
+							<md-button class="md-raised md-primary" type="submit" ng-disabled="serviceAddressForm.$invalid">Save</md-button>
+						</div>
+					</form>
+				</div>
+				<div ng-show="customer.request.addressId">
+					<p>
+						<strong>Appointment Time:</strong>
+					</p>
+					<form name="dateTimeForm" layout-align="start start">
+						<div layout="row" layout-gt-md="row">
+							<date-time flex="60" name="dateTime" ng-model="customer.request.appointment"></date-time>
+						</div>
+					</form>
+				</div>
+
+				<div layout="row" ng-show="customer.request.addressId">
+					<md-input-container flex="30">
+						<label>Technician</label>
+						<md-select ng-model="customer.request.technicianId">
+							<md-option ng-repeat="technician in customer.technicians" ng-value="technician.id" ng-bind="technician.full_name"></md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="40">
+						<label>Dispatch Code</label>
+						<md-select ng-model="customer.request.dispatchCode" name="dispatchCode">
+							<md-option><em>None</em></md-option>
+							<md-option ng-repeat="code in customer.dispatchCodes" ng-value="code.id">
+							{{code.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="30">
+						<label>Type:</label>
+						<md-select ng-model="customer.request.typeId">
+							<md-option ng-repeat="type in customer.types" ng-value="type.id" ng-bind="type.name"></md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<div layout="row">
+					<md-input-container flex="100">
+						<label>Notes for service request</label>
+						<textarea id="service-request-notes" ng-model="customer.request.notes" rows="3" md-select-on-focus></textarea>
+					</md-input-container>
+				</div>
+
+				<div layout="row" ng-show="customer.request.addressId">
+					<md-input-container flex="33">
+						<label>Payment Type:</label>
+						<md-select ng-model="customer.request.paymentType">
+							<md-option ng-repeat="paymenttype in customer.paymentTypes" ng-value="paymenttype.id" ng-bind="paymenttype.name"></md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="33">
+						<label>Lead Source:</label>
+						<md-select ng-model="customer.request.sourceId">
+							<md-option ng-repeat="source in customer.sources" ng-value="source.id" ng-bind="source.name"></md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="33">
+						<label>Salesman:</label>
+						<md-select ng-model="customer.request.salesman">
+							<md-option ng-repeat="source in customer.sources" ng-value="source.id" ng-bind="source.name"></md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<div flex="100" layout="row" layout-align="end center" ng-if="customer.showServiceRequestBuilder">
+					<md-button class="md-raised md-warn md-hue-2" ng-click="customer.cancelRequest()">Clear</md-button>
+					<span flex></span>
+					<div ng-if="customer.request.addressId">
+						<md-button class="md-raised default" ng-click="customer.saveServiceRequest(3)">Dispatch</md-button>
+						<md-button class="md-raised default" ng-click="customer.saveServiceRequest(2)">Schedule</md-button>
+						<md-button class="md-raised default" ng-click="customer.saveServiceRequest(1)">Queue</md-button>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Service Requests</h2>
+					<span flex></span>
+					<md-button class="md-raised" aria-label="Learn More" ng-hide="customer.showServiceRequestBuilder" ng-click="customer.startRequest()">
+						New Service Request
+					</md-button>
+				</div>
+			</md-toolbar>
+			<md-card-content ng-if="customer.request.customerId">
+				<table md-table>
+					<thead md-head>
+						<tr md-row>
+							<th md-column>Type</th>
+							<th md-column>Promised</th>
+							<th md-column>Status</th>
+							<th md-column></th>
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr md-row ng-class="{'bg-system-light' : request.promised_date_short === cCtrl.dt,
+										'scheduled': request.service_request_status === 'scheduled',
+										'created':request.service_request_status === 'created',
+										'dispatched':request.service_request_status === 'dispatched',
+										'closed':request.service_request_status === 'closed',
+										'ready-review':request.service_request_status === 'ready for review'}"
+							ng-repeat="request in customer.model.serviceRequests | orderBy: '-promised_date_short'" >
+							<td md-cell ng-bind="request.department_name"></td>
+							<td md-cell class="text-center">
+								<span ng-bind="request.promised_date"></span>
+								<br ng-if="request.promised_date && request.promised_time" />
+								<span ng-if="request.promised_time" ng-bind="'@' + request.promised_time"></span>
+							</td>
+							<td md-cell>
+									<span class="label" ng-bind="request.service_request_status"
+										  ng-class="{'label-warning': request.service_request_status === 'scheduled',
+											'label-danger': request.service_request_status === 'created',
+											'label-info': request.service_request_status === 'dispatched',
+											'label-success': request.service_request_status === 'ready for review',
+											'label-default': request.service_request_status === 'closed'}"></span>
+							</td>
+							<td md-cell>
+								<md-button ui-sref="worthClark.serviceRequest.detail({ id:request.id })">View</md-button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-card-content>
+		</md-card>
+	</section>
+</div>

@@ -1,0 +1,38 @@
+<div flex="90" layout="column" layout-gt-sm="row" layout-align="space-around start">
+	<md-input-container ng-class="{'md-input-has-value': date.startDate}">
+		<mdp-date-picker 
+			name="startDate"
+			ng-model="date.startDate"
+			mdp-placeholder="From date" 
+			mdp-max-date="date.endDate"
+			ng-change="onDateChanged('startDate')"
+			required>
+			<div ng-messages="formCtrl.startDate.$error">
+				<div ng-message="valid">The entered value is not a date!</div>
+				<div ng-message="format">Invalid format</div>
+				<div ng-message="required">A start date is required!</div>
+				<div ng-message="minDate">Date is too early!</div>
+				<div ng-message="maxDate">Date is too late!</div>
+			</div>
+		</mdp-date-picker>
+	</md-input-container>
+	<md-input-container ng-class="{'md-input-has-value': date.endDate}">
+		<mdp-date-picker 
+			name="endDate"
+			ng-model="date.endDate" 
+			mdp-placeholder="To date"
+			mdp-min-date="date.startDate"
+			ng-change="onDateChanged('endDate')"
+			required>
+			<div ng-messages="formCtrl.endDate.$error">
+				<div ng-message="valid">The entered value is not a date!</div>
+				<div ng-message="format">Invalid format</div>
+				<div ng-message="required">An end date is required!</div>
+				<div ng-message="minDate">Date is too early!</div>
+				<div ng-message="maxDate">Date is too late!</div>
+			</div>
+		</mdp-date-picker>
+	</md-input-container>
+</div>
+
+

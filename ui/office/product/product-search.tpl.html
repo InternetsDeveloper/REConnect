@@ -1,0 +1,167 @@
+<div flex layout="column" class="product-search-wrapper">
+	<top-slide-out  id="product-search-quickview" 
+			 		class="product-search-quickview" 
+			 		expanded="search.showQuickView"
+			 		ng-show="search.product">
+
+		<!-- Product Detail Pane (initially hidden)  -->
+
+		<div layout-gt-sm="row" layout="column" layout-padding>
+			<div layout="row" layout-align="center start" layout-wrap>
+				<img ng-src="{{search.product.imgSrc}}" height="220" width="220" alt="Product Image" class="product-image pointer mdl-shadow--2dp" ng-click="product.setImg()" />
+			</div>
+
+			<div flex-gt-sm="100">
+				<div layout="column" layout-gt-xs="row">
+					<md-chips flex>
+						<md-chip ng-repeat="tag in search.product.tags" ng-bind="tag.name"></md-chip>
+					</md-chips>
+				</div>
+
+				<h2 ng-bind="search.product.title"></h2>
+
+				<div layout="row" layout-margin layout-wrap>
+					<p ng-bind="'Product ID: ' + search.product.id"												flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Regular SA Price: ' + ((search.product.regularWithAgreement | currency) || '')" flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Labor Minutes: ' + ((search.product.allocatedMinutes | currency) || '')" 		flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Material Cost: ' + ((search.product.allocatedMaterialCost | currency) || '')" 	flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Payroll Spiff: ' + ((search.product.payrollSpiff | currency) || '')" 			flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Payroll Commission: ' + ((search.product.payrollCommission | currency) || '')" flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+					<p ng-bind="'Price Overides Enabled: ' + (search.product.priceOverride || 'false')" 		flex="45" flex-sm="33" flex-md="25" flex-gt-md="20"></p>
+				</div>
+				<div layout="column" layout-gt-xs="row"  layout-align="end bottom">
+					<md-button ui-sref="worthClark.product.edit({ id: search.product.id })">Edit Product</md-button>
+					<md-button ng-click="search.closeQuickView()" class="md-warn">Close</md-button>
+				</div>
+			</div>
+
+		</div>
+	</top-slide-out>
+
+	<section layout="row" flex="auto" layout-xs="column" layout-sm="column">
+
+		<!-- Filters -->
+		<div flex-xs="100" flex-sm="100" flex-md="35" flex-lg="20" class="filters" ng-if="search.selectedDept">
+			<md-card class="product-search">
+				<div hide show-gt-sm>
+					<div layout="column" layout-sm="row" layout-wrap>
+						<md-card-title class="filter-title">
+							<md-card-title-text layout="column" layout-wrap>
+								<span class="md-headline">Filters</span>
+								<md-button class="md-warn pull-right" 
+									ng-click="search.resetFilters()" 
+									ng-show="search.selectedDept">
+										Reset
+								</md-button>
+							</md-card-title-text>
+						</md-card-title>
+					</div>
+					<md-card-content>
+						<div layout-sm="row" layout-align="space-between start" layout-margin layout-wrap>
+							<div ng-repeat="dept in search.tags[search.selectedDept]" flex-sm="30" ng-if="dept.tags.length > 0" class="md-body-1">
+								<fieldset class="standard">
+									<legend ng-bind="dept.name"></legend>
+									<div ng-repeat="tag in dept.tags | limitTo: search.tagLimit[$index] || 5">
+										<md-checkbox class="md-block" ng-model="tag.checked" ng-click="search.chipSet(tag)" aria-label="{{tag.name}}">
+											{{tag.name | capitalize}}
+										</md-checkbox>
+									</div>
+									<md-button ng-if="dept.tags.length > 5" class="md-primary" ng-click="search.changeLimit(search.selectedDept, $index)">
+										<span hide show-gt-md>Show </span>
+										<span ng-hide="search.tagLimit[$index] > 5">More</span>
+										<span ng-show="search.tagLimit[$index] > 5">Less</span>
+									</md-button>
+								</fieldset>
+							</div>
+						</div>
+					</md-card-content>
+				</div>
+				<v-accordion hide-gt-sm>
+					<v-pane expanded="false">
+						<v-pane-header>
+							<div layout="row" flex="100" layout-align="space-between" layout-padding>
+								<span class="md-headline">Filters</span>
+								<i class="fa fa-arrow-circle-down pane-icon"></i>
+							</div>
+						</v-pane-header>
+						<v-pane-content expanded="true">
+							<div layout="column" layout-sm="row" layout-wrap>
+								<md-card-title class="filter-title">
+									<md-card-title-text layout="column" layout-wrap>
+										<md-button class="md-warn pull-right" 
+											ng-click="search.resetFilters()" 
+											ng-show="search.selectedDept">
+												Reset
+										</md-button>
+									</md-card-title-text>
+								</md-card-title>
+							</div>
+							<md-card-content>
+								<div layout-sm="row" layout-align="space-between start" layout-padding layout-wrap>
+									<div ng-repeat="dept in search.tags[search.selectedDept]" flex-sm="15" flex-xs="100" ng-if="dept.tags.length > 0" class="md-body-1">
+										<fieldset class="standard">
+											<legend ng-bind="dept.name"></legend>
+											<div ng-repeat="tag in dept.tags | limitTo: search.tagLimit[$index] || 5">
+												<md-checkbox class="md-block" ng-model="tag.checked" ng-click="search.chipSet(tag)" aria-label="{{tag.name}}">
+													{{tag.name | capitalize}}
+												</md-checkbox>
+											</div>
+											<md-button ng-if="dept.tags.length > 5" class="md-primary" ng-click="search.changeLimit(search.selectedDept, $index)">
+												<span hide show-gt-md>Show </span>
+												<span ng-hide="search.tagLimit[$index] > 5">More</span>
+												<span ng-show="search.tagLimit[$index] > 5">Less</span>
+											</md-button>
+										</fieldset>
+									</div>
+								</div>
+							</md-card-content>
+						</v-pane-content>
+					</v-pane>
+				</v-accordion>
+			</md-card>
+		</div>
+
+		<!-- Departments -->
+		<div flex="grow" layout-fill layout-wrap>
+			<md-card>
+				<v-accordion>
+					<v-pane expanded="true">
+						<v-pane-header>
+							<div layout="row" flex="100" layout-align="space-between" layout-padding>
+								<span class="md-headline">Departments</span>
+								<i class="fa fa-arrow-circle-down pane-icon"></i>
+							</div>
+						</v-pane-header>
+						<v-pane-content expanded="search.expanded">
+							<md-card-content>
+								<md-radio-group ng-model="search.selectedDept" flex="100" layout="row" layout-padding layout-wrap>
+									<md-radio-button ng-repeat="dept in search.depts" value="{{'t' + dept.id}}" ng-click="search.selectDepartment(dept.id)" flex-lg="20" flex-md="30" flex-sm="30" flex-xs="45" class="md-body-1">{{dept.name}}</md-radio-button>
+								</md-radio-group>
+								<md-card-title-text layout="column" layout-gt-xs="row" layout-align-gt-xs="end end">
+									<md-button class="md-raised md-primary" ui-sref="worthClark.product.upload">Upload Products</md-button>
+									<md-button class="md-raised md-primary" ui-sref="worthClark.product.create">Create Product</md-button>
+								</md-card-title-text>
+							</md-card-content>
+						</v-pane-content>
+					</v-pane>
+				</v-accordion>
+			</md-card>
+			
+
+			<!-- Table Top Right Menu Button and Menu-->
+
+			<md-card class="product-search" ng-if="search.selectedDept">
+				<table-searchable
+					columns="search.tableLayout"
+					config="search.tableConfig"
+					progress="search.promise"
+					data="search.tableData"
+					filters="search.tableFilter"
+					action="search.quickView">
+				</table-searchable>
+			</md-card>
+
+		</div>
+	</section>
+
+</div>

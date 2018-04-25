@@ -1,0 +1,100 @@
+#service-request-list {
+	.list-row {
+		&.created,
+		&.scheduled {
+			border-left: 2px solid orange;
+		}
+
+		&.dispatched {
+			border-left: 2px solid red;
+		}
+
+		&.ready-for-review {
+			border-left: 2px solid green;
+		}
+
+		&.closed {
+			border-left: 2px solid gray;
+		}
+	}
+
+	.range-selected {
+		background-color: #ccc; 
+	}
+
+	.tag-container {
+		min-width: 25%;
+	}
+/* 
+	fieldset {
+		width: 100%;
+	} */
+
+	md-card-title {
+		flex: none;
+	}
+
+
+	fieldset md-checkbox {
+	    word-break: break-all;
+	}
+}
+
+#service-request-details {
+  	md-card-content h3 {
+		white-space: initial;
+		text-overflow: initial;
+	}
+
+	md-select {
+	  margin: 0px;
+	}
+
+	md-select.md-default-theme .md-select-value, md-select .md-select-value {
+	  border-bottom-color: rgba(0, 0, 0, 0);
+	}
+
+	/*
+	 * Styles for head row
+	 */
+	& > section.layout-wrap.layout-gt-md-row.layout-column.flex-100 > h4 {
+		margin: 0 0 20px;
+		font-weight: normal;
+	}
+
+	& > section > md-divider {
+		border-top-width: 1px;
+	}
+
+	& > section.flex-100 > h3 {
+		margin-top: 0;
+	}
+
+	/*
+	 * Styles for billing information
+	 */
+	& > section:nth-child(2) > md-card:nth-child(1) > md-card-content > md-list:nth-child(3) > md-list-item:nth-child(4) > div.md-list-item-text {
+		margin-top: 10px;
+	}
+
+	/*
+	 * Styles for communication
+	 */
+	& > section:nth-child(2) > md-card:nth-child(1) > md-card-content > md-list:nth-child(3) > md-list-item.md-1-line.md-no-proxy._md > div.md-list-item-text {
+		padding-bottom: 1px;
+	}
+
+	md-list-item > md-icon:first-child:not(.md-avatar-icon), md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) {
+	  	margin-right: 15px;
+	}
+
+  	md-menu .md-button {
+		margin: 0;
+		padding: 0;
+		width: initial;
+	}
+
+  	md-list-item.md-no-proxy, md-list-item .md-no-style {
+	  	padding: 0px 0px 0px 5px;
+	}
+}

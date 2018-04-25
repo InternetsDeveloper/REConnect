@@ -1,0 +1,558 @@
+<div layout="row" layout-wrap>
+	<md-card flex="100" class="ng-hide" id="notes" ng-controller="ContactNoteController as note">
+		<md-header><h3>Create a Note</h3></md-header>
+		<md-card-content flex="100">
+			<form id="note-create" layout-wrap name="noteForm" novalidate
+					  ng-submit="noteForm.$valid && contact.submit()">
+				<md-container layout="row" layout-padding>
+					<label>Note Description</label>
+				</md-container>
+				<md-container layout="row" layout-wrap flex="100" layout-padding>
+				<textarea flex="100" ng-model="note.noteDescription"/>
+				</md-container>
+				<md-container layout="row" layout-wrap flex="100" layout-padding>
+					<label>Who can view this note?</label>
+					<select flex="80"/>
+				</md-container>
+				<md-container layout="row" layout-wrap flex="100" layout-padding>
+					<label>Notify:</label>
+					<select flex="80"/>
+				</md-container>
+				<md-container layout="row" flex="100" layout-align="end center">
+					<md-button class="md-raised md-warn md-hue-2" ng-click="note.closeNoteForm()">Cancel</md-button>
+					<md-button class="md-raised md-primary" ng-click="note.saveNote()"
+								   ng-disabled="noteForm.$invalid || !noteForm.$dirty">Save
+					</md-button>
+				</md-container>
+			</form>
+		</md-card-content>
+	</md-card>
+	<section flex="100" layout="column">
+		<md-card>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Contact Information</h2>
+				</div>
+			</md-toolbar>
+			<md-container layout="row" flex="100" layout-align="start">
+				<md-button ng-controller="ContactNoteController as note" class="md-raised md-primary" type="button" ng-click="note.openNoteForm()">Notes
+				</md-button>
+			</md-container>
+			<md-card-content>
+				<form id="contact-create" layout-wrap name="contactForm" novalidate
+					  ng-submit="contactForm.$valid && contact.submit()">
+					<div layout="row" layout-align="center start" layout-wrap>
+						<img ng-src="{{contact.model.photo_url}}" height="150" width="150" alt="Contact Image"
+							 class="pointer md-avatar"/>
+					</div>
+					<div layout="row" ng-init="contact.formIntegrity.setActiveForm(contactForm)">
+						<md-input-container class="md-block" flex="100">
+							<label>Name</label>
+							<input required ng-model="contact.model.name" ng-pattern="contact.validation.name.pattern"
+								   name="name"
+								   maxlength="100" focusauto/>
+							<div ng-messages="contactForm.name.$error" role="alert">
+								<div ng-message="required">A name is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.name.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<!--<div layout="row">-->
+					<!--<md-input-container class="md-block" flex="50">-->
+					<!--<label>Company Name</label>-->
+					<!--<input ng-model="contact.model.companyName" ng-pattern="contact.validation.general.pattern"-->
+					<!--name="companyName" maxlength="70"/>-->
+					<!--<div ng-messages="contactForm.companyName.$error" role="alert">-->
+					<!--<div ng-message="pattern" ng-bind="contact.validation.general.message"></div>-->
+					<!--</div>-->
+					<!--</md-input-container>-->
+					<!--<md-input-container ng-if="contact.model.companyName && contact.request.contactId" class="md-block" flex="50">-->
+					<!--<md-checkbox ng-model="contact.model.contractRate">-->
+					<!--With Contract Rate-->
+					<!--</md-checkbox>-->
+					<!--</md-input-container>-->
+					<!--</div>-->
+					<div layout="row">
+						<!--<md-input-container class="md-block" flex="50">-->
+						<!--<label>Phone Number</label>-->
+						<!--<input type="tel" ts-phone required ng-model="contact.model.mobilePhone" name="mobilePhone"-->
+						<!--ng-minlength="10" maxlength="20"/>-->
+						<!--<div ng-messages="contactForm.mobilePhone.$error" role="alert">-->
+						<!--<div ng-message="required">A phone number is required.</div>-->
+						<!--<div ng-message="minlength" ng-bind="contact.validation.phone.message"></div>-->
+						<!--</div>-->
+						<!--</md-input-container>-->
+						<md-input-container class="md-block" flex="100">
+							<label>Email</label>
+							<input type="email" ng-model="contact.model.email" name="email" maxlength="70"/>
+							<div ng-messages="contactForm.email.$error" role="alert">
+								<div ng-message="email" ng-bind="contact.validation.email.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50" ng-show="contact.model.mobilePhone">
+							<label>Alternate Phone Number</label>
+							<input type="tel" ts-phone ng-model="contact.model.phone" name="homePhone"
+								   ng-minlength="10" maxlength="20"/>
+							<div ng-messages="contactForm.homePhone.$error" role="alert">
+								<div ng-message="minlength" ng-bind="contact.validation.phone.message"></div>
+							</div>
+						</md-input-container>
+						<!--<md-input-container class="md-block" flex="50" ng-show="contact.model.email">-->
+						<!--<label>Alternate Email</label>-->
+						<!--<input type="email" ng-model="contact.model.alternateEmail" name="alternateEmail" maxlength="70"/>-->
+						<!--<div ng-messages="contactForm.alternateEmail.$error" role="alert">-->
+						<!--<div ng-message="email" ng-bind="contact.validation.email.message"></div>-->
+						<!--</div>-->
+						<!--</md-input-container>-->
+					</div>
+					<div layout="row" ng-if="contact.request.contactId === null">
+						<md-input-container class="md-block" flex="50">
+							<label>Service Address</label>
+							<input autocomplete="off" required ng-model="contact.model.serviceAddresses.street"
+								   ng-pattern="contact.validation.street.pattern"
+								   name="serviceStreet" maxlength="70" google-place
+								   fields="contact.model.serviceAddresses"/>
+							<div ng-messages="contactForm.serviceStreet.$error" role="alert">
+								<div ng-message="required">A street is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.street.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>City</label>
+							<input required ng-model="contact.model.serviceAddresses.city"
+								   ng-pattern="contact.validation.city.pattern"
+								   name="serviceCity" maxlength="50"/>
+							<div ng-messages="contactForm.serviceCity.$error" role="alert">
+								<div ng-message="required">A city is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.city.message"></div>
+							</div>
+						</md-input-container>
+						<md-autocomplete
+								flex="16"
+								md-input-name="serviceState"
+								md-selected-item="contact.model.serviceAddresses.state"
+								md-search-text="contact.usStates.serviceSearchText"
+								md-items="item in contact.usStates.querySearch(contact.usStates.serviceSearchText)"
+								md-item-text="item.abbreviation"
+								md-min-length="2"
+								md-floating-label="State/Province"
+								md-match-case-insensitive="true"
+								md-select-on-match
+								md-require-match
+								required>
+							<md-item-template>
+								<span md-highlight-text="contact.usStates.serviceSearchText" md-highlight-flags="^i">{{item.name}}</span>
+							</md-item-template>
+							<md-not-found>
+								No states matching "{{contact.usStates.serviceSearchText}}" were found.
+							</md-not-found>
+							<div ng-messages="contactForm.serviceState.$error" role="alert">
+								<div ng-message="required">A state is required.</div>
+								<div ng-message="md-require-match" ng-bind="contact.validation.state.message"></div>
+							</div>
+						</md-autocomplete>
+						<md-input-container class="md-block" flex="16">
+							<label>Postal Code</label>
+							<input required ng-model="contact.model.serviceAddresses.zip" name="serviceZip"
+								   maxlength="10"
+								   ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/"/>
+							<div ng-messages="contactForm.serviceZip.$error" role="alert">
+								<div ng-message="required">A zip is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.zip.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" layout-align="start center" ng-if="contact.request.contactId === null">
+						<md-input-container flex="50">
+							<label>Service Address Location</label>
+							<md-select ng-model="contact.model.serviceAddresses.location">
+								<md-option ng-repeat="location in contact.locations" ng-value="location.id"
+										   ng-bind="location.name"></md-option>
+							</md-select>
+						</md-input-container>
+						<span flex></span>
+						<!--<md-checkbox ng-click="contact.copyAddress()">-->
+						<!--Copy to Billing Address-->
+						<!--</md-checkbox>-->
+					</div>
+					<div layout="row">
+						<md-input-container class="md-block" flex="50">
+							<label>Address</label>
+							<input required ng-model="contact.model.billingAddresses.street"
+								   ng-pattern="contact.validation.street.pattern"
+								   name="street" maxlength="70" google-place fields="contact.model.billingAddresses"/>
+							<div ng-messages="contactForm.street.$error" role="alert">
+								<div ng-message="required">A street is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.street.message"></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>City</label>
+							<input required ng-model="contact.model.billingAddresses.city"
+								   ng-pattern="contact.validation.city.pattern"
+								   name="city" maxlength="50"/>
+							<div ng-messages="contactForm.city.$error" role="alert">
+								<div ng-message="required">A city is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.city.message"></div>
+							</div>
+						</md-input-container>
+						<md-autocomplete
+								flex="16"
+								md-input-name="state"
+								md-selected-item="contact.model.billingAddresses.state"
+								md-search-text="contact.usStates.searchText"
+								md-items="item in contact.usStates.querySearch(contact.usStates.searchText)"
+								md-item-text="item.abbreviation"
+								md-min-length="2"
+								md-floating-label="State/Province"
+								md-match-case-insensitive="true"
+								md-select-on-match
+								md-require-match
+								required>
+							<md-item-template>
+								<span md-highlight-text="contact.usStates.searchText" md-highlight-flags="^i">{{item.name}}</span>
+							</md-item-template>
+							<md-not-found>
+								No states or provinces matching "{{contact.usStates.searchText}}" were found.
+							</md-not-found>
+							<div ng-messages="contactForm.state.$error" role="alert">
+								<div ng-message="required">A state or province is required.</div>
+								<div ng-message="md-require-match" ng-bind="contact.validation.state.message"></div>
+							</div>
+						</md-autocomplete>
+						<md-input-container class="md-block" flex="16">
+							<label>Postal Code</label>
+							<input required ng-model="contact.model.billingAddresses.zip" name="zip" maxlength="10"
+								   ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/"/>
+							<div ng-messages="contactForm.zip.$error" role="alert">
+								<div ng-message="required">A postal code is required.</div>
+								<div ng-message="pattern" ng-bind="contact.validation.zip.message"></div>
+							</div>
+						</md-input-container>
+					</div>
+					<!--<div layout="row" ng-if="contact.request.contactId">-->
+					<!--<md-input-container flex="50">-->
+					<!--<label>Rate Type</label>-->
+					<!--<md-select ng-model="contact.model.type.id">-->
+					<!--<md-option ng-repeat="type in contact.contactTypes.rate_types" ng-value="type.id" ng-bind="type.name"></md-option>-->
+					<!--</md-select>-->
+					<!--</md-input-container>-->
+					<!--<md-input-container class="md-block" flex="50">-->
+					<!--<md-checkbox ng-model="contact.model.ableToBill" ng-true-value="1" ng-false-value="0">-->
+					<!--Able to Bill-->
+					<!--</md-checkbox>-->
+					<!--</md-input-container>-->
+					<!--</div>-->
+					<div flex="100" layout="row" layout-align="end center">
+						<md-button class="md-raised md-warn md-hue-2" ui-sref="worthClark.contact.list">Cancel
+						</md-button>
+						<md-button class="md-raised md-primary" type="submit"
+								   ng-disabled="contactForm.$invalid || !contactForm.$dirty">Save
+						</md-button>
+					</div>
+				</form>
+			</md-card-content>
+		</md-card>
+		<!--<md-card>-->
+		<!--<md-toolbar>-->
+		<!--<div class="md-toolbar-tools">-->
+		<!--<h2>Service Agreements</h2>-->
+		<!--</div>-->
+		<!--</md-toolbar>-->
+		<!--<md-card-content ng-if="contact.request.contactId">-->
+
+		<!--</md-card-content>-->
+		<!--</md-card>-->
+		<!--<md-card>-->
+		<!--<md-toolbar>-->
+		<!--<div class="md-toolbar-tools">-->
+		<!--<h2>Contact Notes</h2>-->
+		<!--</div>-->
+		<!--</md-toolbar>-->
+		<!--<md-card-content ng-if="contact.request.contactId">-->
+		<!--<small class="text-primary pointer" ng-click="contact.toggleAddNotes()">-->
+		<!--<md-button ng-hide="contact.showAddNotes">add</md-button>-->
+		<!--</small>-->
+		<!--<form class="form-horizontal row" name="newNote" ng-if="contact.showAddNotes" ng-submit="contact.addNote(newNote)">-->
+		<!--<div layout="row">-->
+		<!--<md-input-container flex="100">-->
+		<!--<label>Notes</label>-->
+		<!--<textarea id="note-text" name="text" ng-model="text" rows="3" md-select-on-focus required></textarea>-->
+		<!--</md-input-container>-->
+		<!--</div>-->
+		<!--<div flex="100" layout="row" layout-align="end center">-->
+		<!--<md-button class="md-raised md-warn md-hue-2" ng-show="contact.showAddNotes">Cancel</md-button>-->
+		<!--<md-button class="md-raised md-primary" type="submit" ng-disabled="newNote.$invalid">Save</md-button>-->
+		<!--</div>-->
+		<!--</form>-->
+		<!--<div flex>-->
+		<!--<md-card ng-repeat="note in contact.notes">-->
+		<!--<md-card-content>-->
+		<!--<span ng-bind="note.datetime"></span>-->
+		<!--<span ng-bind="note.user"></span>-->
+		<!--<br />-->
+		<!--<span ng-bind="note.text"></span>-->
+		<!--</md-card-content>-->
+		<!--</md-card>-->
+		<!--</div>-->
+		<!--</md-card-content>-->
+		<!--</md-card>-->
+	</section>
+	<!--<section flex="50" layout="column">-->
+	<!--<md-card ng-show="contact.showServiceRequestBuilder" id="service-request">-->
+	<!--<md-toolbar>-->
+	<!--<div class="md-toolbar-tools">-->
+	<!--<h2>New Service Request</h2>-->
+	<!--<span flex></span>-->
+	<!--</div>-->
+	<!--</md-toolbar>-->
+	<!--<md-card-content ng-if="contact.request.contactId">-->
+	<!--<div layout="column">-->
+	<!--<div ng-hide="contact.showServiceAddressForm">-->
+	<!--<div layout="row">-->
+	<!--<md-input-container class="md-block" flex="80">-->
+	<!--<label>Search for a service address</label>-->
+	<!--<input name="search" ng-model="contactDetail.search" />-->
+	<!--</md-input-container>-->
+	<!--<div>-->
+	<!--<md-button ng-hide="contact.showServiceAddressForm" ng-click="contact.toggleServiceAddressForm()">Create Service Address</md-button>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--<div layout="column">-->
+	<!--<md-radio-group ng-model="contact.request.addressId" name="address">-->
+	<!--<p>-->
+	<!--<strong>Select service request address:</strong>-->
+	<!--</p>-->
+	<!--<div layout="row">-->
+	<!--<div flex="65"><strong>Address</strong></div>-->
+	<!--<div flex="5"></div>-->
+	<!--<div flex="20"><strong>Location</strong></div>-->
+	<!--<div flex="10"></div>-->
+	<!--</div>-->
+	<!--<br />-->
+	<!--<div layout="row" ng-repeat="address in contact.model.serviceAddresses || [] | filter: contactDetail.search | limitTo: contact.addressLimit || 5">-->
+	<!--<md-radio-button ng-value="address.id" flex="65">-->
+	<!--<div >-->
+	<!--<span ng-bind-html="address.street"></span>-->
+	<!--<span ng-if="address.street_two" ng-bind-html="address.street_two"></span>-->
+	<!--<span ng-bind-html="address.city"></span>,-->
+	<!--<span ng-bind-html="address.state"></span>-->
+	<!--<span ng-bind-html="address.zip"></span>-->
+	<!--</div>-->
+	<!--</md-radio-button>-->
+	<!--<span flex="5"></span>-->
+	<!--<span flex="20" ng-bind-html="address.location.name"></span>-->
+	<!--<span flex="5"></span>-->
+	<!--<md-icon class="pointer" md-font-icon="fa fa-pencil" ng-click="contact.editServiceAddress(address)"></md-icon>-->
+	<!--</div>-->
+	<!--</md-radio-group>-->
+	<!--<md-button flex="100" ng-if="contact.model.serviceAddresses.length > 5" class="md-primary" ng-click="contact.changeLimit()">-->
+	<!--Show-->
+	<!--<span ng-hide="contact.addressLimit > 5">More</span>-->
+	<!--<span ng-show="contact.addressLimit > 5">Less</span>-->
+	<!--</md-button>-->
+	<!--</div>-->
+	<!--</div>-->
+
+	<!--<form layout-gt-md="row" layout="column" layout-wrap name="serviceAddressForm" novalidate ng-submit="contact.addNewServiceAddress(serviceAddressForm)" ng-if="contact.showServiceAddressForm">-->
+	<!--<div layout="row" flex="100" ng-init="contact.formIntegrity.setActiveForm(serviceAddressForm)">-->
+	<!--<md-input-container class="md-block" flex="50">-->
+	<!--<label>Line 1</label>-->
+	<!--<input required ng-model="contact.newServiceAddress.street" name="street" ng-pattern="contact.validation.street.pattern" maxlength="70" google-place fields="contact.newServiceAddress" />-->
+	<!--<div ng-messages="serviceAddressForm.street.$error" role="alert">-->
+	<!--<div ng-message="required">A street is required.</div>-->
+	<!--<div ng-message="pattern" ng-bind="contact.validation.street.message"></div>-->
+	<!--</div>-->
+	<!--</md-input-container>-->
+	<!--<md-input-container class="md-block" flex="50">-->
+	<!--<label>Line 2</label>-->
+	<!--<input ng-model="contact.newServiceAddress.street_two" name="street_two" ng-pattern="contact.validation.street_two.pattern" maxlength="70"/>-->
+	<!--<div ng-messages="serviceAddressForm.street_two.$error" role="alert">-->
+	<!--<div ng-message="pattern" ng-bind="contact.validation.street.message"></div>-->
+	<!--</div>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+	<!--<div layout="row" flex="100">-->
+	<!--<md-input-container class="md-block" flex="50">-->
+	<!--<label>City</label>-->
+	<!--<input required ng-model="contact.newServiceAddress.city" name="city" ng-pattern="contact.validation.city.pattern" maxlength="50"/>-->
+	<!--<div ng-messages="serviceAddressForm.city.$error" role="alert">-->
+	<!--<div ng-message="required">A city is required.</div>-->
+	<!--<div ng-message="pattern" ng-bind="contact.validation.city.message"></div>-->
+	<!--</div>-->
+	<!--</md-input-container>-->
+	<!--<md-autocomplete-->
+	<!--md-input-name="serviceState"-->
+	<!--md-selected-item="contact.newServiceAddress.state"-->
+	<!--md-search-text="contact.usStates.searchServiceText"-->
+	<!--md-items="item in contact.usStates.querySearch(contact.usStates.searchServiceText)"-->
+	<!--md-item-text="item.abbreviation"-->
+	<!--md-min-length="2"-->
+	<!--md-floating-label="State"-->
+	<!--md-select-on-match-->
+	<!--md-require-match-->
+	<!--md-match-case-insensitive="true"-->
+	<!--required>-->
+	<!--<md-item-template>-->
+	<!--<span md-highlight-text="contact.usStates.searchServiceText" md-highlight-flags="^i">{{item.name}}</span>-->
+	<!--</md-item-template>-->
+	<!--<md-not-found>-->
+	<!--No states matching "{{contact.usStates.searchServiceText}}" were found.-->
+	<!--</md-not-found>-->
+	<!--<div ng-messages="serviceAddressForm.serviceState.$error" role="alert">-->
+	<!--<div ng-message="required">A state is required.</div>-->
+	<!--<div ng-message="md-require-match" ng-bind="contact.validation.state.message"></div>-->
+	<!--</div>-->
+	<!--</md-autocomplete>-->
+
+	<!--<md-input-container class="md-block" flex="25">-->
+	<!--<label>Zip</label>-->
+	<!--<input required ng-model="contact.newServiceAddress.zip" name="zip" ng-pattern="contact.validation.zip.pattern" maxlength="10"/>-->
+	<!--<div ng-messages="serviceAddressForm.zip.$error" role="alert">-->
+	<!--<div ng-message="required">A zip is required.</div>-->
+	<!--<div ng-message="pattern" ng-bind="contact.validation.zip.message"></div>-->
+	<!--</div>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+	<!--<div flex="100" layout="row">-->
+	<!--<md-input-container flex="100">-->
+	<!--<label>Service Address Location</label>-->
+	<!--<md-select ng-model="contact.newServiceAddress.location.id">-->
+	<!--<md-option ng-repeat="location in contact.locations" ng-value="location.id" ng-bind="location.name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+	<!--<div flex="100" layout="row" layout-align="end center">-->
+	<!--<md-button class="md-raised md-warn md-hue-2" ng-click="contact.toggleServiceAddressForm()">Cancel</md-button>-->
+	<!--<md-button class="md-raised md-primary" type="submit" ng-disabled="serviceAddressForm.$invalid">Save</md-button>-->
+	<!--</div>-->
+	<!--</form>-->
+	<!--</div>-->
+	<!--<div ng-show="contact.request.addressId">-->
+	<!--<p>-->
+	<!--<strong>Appointment Time:</strong>-->
+	<!--</p>-->
+	<!--<form name="dateTimeForm" layout-align="start start">-->
+	<!--<div layout="row" layout-gt-md="row">-->
+	<!--<date-time flex="60" name="dateTime" ng-model="contact.request.appointment"></date-time>-->
+	<!--</div>-->
+	<!--</form>-->
+	<!--</div>-->
+
+	<!--<div layout="row" ng-show="contact.request.addressId">-->
+	<!--<md-input-container flex="30">-->
+	<!--<label>Technician</label>-->
+	<!--<md-select ng-model="contact.request.technicianId">-->
+	<!--<md-option ng-repeat="technician in contact.technicians" ng-value="technician.id" ng-bind="technician.full_name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--<md-input-container flex="40">-->
+	<!--<label>Dispatch Code</label>-->
+	<!--<md-select ng-model="contact.request.dispatchCode" name="dispatchCode">-->
+	<!--<md-option><em>None</em></md-option>-->
+	<!--<md-option ng-repeat="code in contact.dispatchCodes" ng-value="code.id">-->
+	<!--{{code.name}}-->
+	<!--</md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--<md-input-container flex="30">-->
+	<!--<label>Type:</label>-->
+	<!--<md-select ng-model="contact.request.typeId">-->
+	<!--<md-option ng-repeat="type in contact.types" ng-value="type.id" ng-bind="type.name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+
+	<!--<div layout="row">-->
+	<!--<md-input-container flex="100">-->
+	<!--<label>Notes for service request</label>-->
+	<!--<textarea id="service-request-notes" ng-model="contact.request.notes" rows="3" md-select-on-focus></textarea>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+
+	<!--<div layout="row" ng-show="contact.request.addressId">-->
+	<!--<md-input-container flex="33">-->
+	<!--<label>Payment Type:</label>-->
+	<!--<md-select ng-model="contact.request.paymentType">-->
+	<!--<md-option ng-repeat="paymenttype in contact.paymentTypes" ng-value="paymenttype.id" ng-bind="paymenttype.name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--<md-input-container flex="33">-->
+	<!--<label>Lead Source:</label>-->
+	<!--<md-select ng-model="contact.request.sourceId">-->
+	<!--<md-option ng-repeat="source in contact.sources" ng-value="source.id" ng-bind="source.name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--<md-input-container flex="33">-->
+	<!--<label>Salesman:</label>-->
+	<!--<md-select ng-model="contact.request.salesman">-->
+	<!--<md-option ng-repeat="source in contact.sources" ng-value="source.id" ng-bind="source.name"></md-option>-->
+	<!--</md-select>-->
+	<!--</md-input-container>-->
+	<!--</div>-->
+
+	<!--<div flex="100" layout="row" layout-align="end center" ng-if="contact.showServiceRequestBuilder">-->
+	<!--<md-button class="md-raised md-warn md-hue-2" ng-click="contact.cancelRequest()">Clear</md-button>-->
+	<!--<span flex></span>-->
+	<!--<div ng-if="contact.request.addressId">-->
+	<!--<md-button class="md-raised default" ng-click="contact.saveServiceRequest(3)">Dispatch</md-button>-->
+	<!--<md-button class="md-raised default" ng-click="contact.saveServiceRequest(2)">Schedule</md-button>-->
+	<!--<md-button class="md-raised default" ng-click="contact.saveServiceRequest(1)">Queue</md-button>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</md-card-content>-->
+	<!--</md-card>-->
+	<!--<md-card>-->
+	<!--<md-toolbar>-->
+	<!--<div class="md-toolbar-tools">-->
+	<!--<h2>Service Requests</h2>-->
+	<!--<span flex></span>-->
+	<!--<md-button class="md-raised" aria-label="Learn More" ng-hide="contact.showServiceRequestBuilder" ng-click="contact.startRequest()">-->
+	<!--New Service Request-->
+	<!--</md-button>-->
+	<!--</div>-->
+	<!--</md-toolbar>-->
+	<!--<md-card-content ng-if="contact.request.contactId">-->
+	<!--<table md-table>-->
+	<!--<thead md-head>-->
+	<!--<tr md-row>-->
+	<!--<th md-column>Type</th>-->
+	<!--<th md-column>Promised</th>-->
+	<!--<th md-column>Status</th>-->
+	<!--<th md-column></th>-->
+	<!--</tr>-->
+	<!--</thead>-->
+	<!--<tbody md-body>-->
+	<!--<tr md-row ng-class="{'bg-system-light' : request.promised_date_short === cCtrl.dt,-->
+	<!--'scheduled': request.service_request_status === 'scheduled',-->
+	<!--'created':request.service_request_status === 'created',-->
+	<!--'dispatched':request.service_request_status === 'dispatched',-->
+	<!--'closed':request.service_request_status === 'closed',-->
+	<!--'ready-review':request.service_request_status === 'ready for review'}"-->
+	<!--ng-repeat="request in contact.model.serviceRequests | orderBy: '-promised_date_short'" >-->
+	<!--<td md-cell ng-bind="request.department_name"></td>-->
+	<!--<td md-cell class="text-center">-->
+	<!--<span ng-bind="request.promised_date"></span>-->
+	<!--<br ng-if="request.promised_date && request.promised_time" />-->
+	<!--<span ng-if="request.promised_time" ng-bind="'@' + request.promised_time"></span>-->
+	<!--</td>-->
+	<!--<td md-cell>-->
+	<!--<span class="label" ng-bind="request.service_request_status"-->
+	<!--ng-class="{'label-warning': request.service_request_status === 'scheduled',-->
+	<!--'label-danger': request.service_request_status === 'created',-->
+	<!--'label-info': request.service_request_status === 'dispatched',-->
+	<!--'label-success': request.service_request_status === 'ready for review',-->
+	<!--'label-default': request.service_request_status === 'closed'}"></span>-->
+	<!--</td>-->
+	<!--<td md-cell>-->
+	<!--<md-button ui-sref="worthClark.serviceRequest.detail({ id:request.id })">View</md-button>-->
+	<!--</td>-->
+	<!--</tr>-->
+	<!--</tbody>-->
+	<!--</table>-->
+	<!--</md-card-content>-->
+	<!--</md-card>-->
+	<!--</section>-->
+</div>

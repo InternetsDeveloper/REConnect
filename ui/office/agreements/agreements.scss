@@ -1,0 +1,48 @@
+#agreement-edit {
+  width:480px;
+  max-width:100%;
+
+  	md-content {
+	  padding-bottom: 90px;
+	}
+
+  	md-bottom-sheet {
+	  position: fixed;
+
+	  .md-button {
+		text-align: center;
+	  }
+	}
+
+  	#reminders {
+	  md-input-container {
+		//margin: 0px; // This was commented out because it was affecting the mdPicker.  Didn't see any chnage in the page. 
+	  }
+	}
+
+	/* Hide Date Icon */
+	& > md-content > form > div > md-input-container > md-datepicker > button {
+		display: none;
+	}
+
+	/* Remove margin for icon */
+	& > md-content > form > div > md-input-container > md-datepicker > div.md-datepicker-input-container {
+		margin-left: 0;
+	}
+
+	/* Correct label spacing from removed icon */
+	& > md-content > form > div > md-input-container._md-datepicker-floating-label._md-datepicker-has-calendar-icon.flex-50 > label {
+		left: auto;
+		right: auto;
+		width: 100%;
+	}
+
+	& > md-content > form > div > md-input-container > p {
+		margin: 8px 0 10.5px;
+	}
+
+	/* Delete Icon */
+	& > md-content > form > div > button.md-warn.md-button.md-ink-ripple {
+		min-width: 40px;
+	}
+}

@@ -1,0 +1,109 @@
+<md-content id="dispatch-board" layout="column">
+	<md-card>
+		<div>
+			<div kendo-tooltip 
+				k-content="dispatch.schedulerToolTipContent" 
+				k-filter="'.k-event'"
+				k-position="'top'"
+			    k-width="450"
+				class="k-group">
+				<div kendo-scheduler="dispatch.scheduler" k-options="dispatch.schedulerOptions">
+					<div k-event-template class="custom-event">
+						<span class="location" ng-class="dispatch.locationColor(dataItem)"></span>
+						<md-icon md-font-icon="fa" ng-class="dispatch.statusIcon(dataItem)"></md-icon>
+						<span class="customer-name" ng-bind="dataItem.title"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</md-card>
+	<md-card layout="column" layout-gt-md="row">
+		<kendo-grid flex="100" flex-gt-md="grow" k-scope-field="dispatch.table" options="dispatch.mainGridOptions"></kendo-grid>
+		<script type="text/x-kendo-template" id="grid-row-template">
+			<tr kendo-draggable k-dragstart="dispatch.dragStart" k-hint="dispatch.dragHint" draggable="true" class="request-row" ng-click="dispatch.showInfoWindow(dataItem)">
+				<td ng-class="dispatch.locationColor(dataItem)" ng-bind="dispatch.promiseTimeTemp(dataItem.displayDate)"></td>
+				<td ng-bind="dataItem.deptCodeType"></td>
+				<td ng-bind="dataItem.status"></td>
+				<td ng-bind="dataItem.priority"></td>
+				<td ng-bind="dataItem.customerName"></td>
+				<td ng-bind-html="dataItem.address"></td>
+				<td>
+					<md-button ui-sref="worthClark.serviceRequest.detail({ id: dataItem.id})">...</md-button>
+				</td>
+			</tr>
+		</script>
+		<ui-gmap-google-map flex="100" flex-gt-md="none" center="dispatch.map.center" zoom="dispatch.map.zoom" control="dispatch.map.control" events="dispatch.map.events">
+			<ui-gmap-window
+					coords="dispatch.map.window.model"
+					templateurl="'html/popover.tpl.html'"
+					templateparameter="dispatch.map.window.model.info"
+					isiconvisibleonclick="'true'"
+					options="dispatch.map.window.options"
+					show="dispatch.map.window.show"
+					control="dispatch.map.window.control"
+					closeclick="dispatch.map.actions.closeClick" ng-cloak><div ng-non-bindable></div>
+				</ui-gmap-window>
+			<ui-gmap-markers 
+				models="dispatch.map.markers"
+				coords="'self'"
+				options="'options'"
+				events="dispatch.map.markersEvents"
+				dorebuildall="true"
+				icon="'icon'"></ui-gmap-markers>
+
+
+		</ui-gmap-google-map>
+	</md-card>
+</md-content>
+<script id="schedulerToolTipContent" type="text/x-kendo-template">
+    #var uid = target.attr("data-uid");#
+    #var scheduler = target.closest("[data-role=scheduler]").data("kendoScheduler");#
+    #if (scheduler) {#
+      #var model = scheduler.occurrenceByUid(uid);#
+      #if(model) {#
+		<div class="appointment-hover">
+			<div layout="row" layout-align="space-between flex-start">
+				<div flex="70">
+					<ul>
+						<li>
+							#=model.info.companyName || 'No company name'#
+						</li>
+						<li>
+							#=model.info.fullName || 'No full name'#
+						</li>
+						<li>
+							<address>#=model.info.address || 'No address'#</address>
+						</li>
+						<li>
+							#=model.info.mobilePhone || 'No mobile phone'#
+						</li>
+					</ul>
+				</div>
+				<div flex="30">
+					<ul>
+						<li>
+							#=model.info.requestType || 'No request type'#
+						</li>
+						<li>
+							#=model.info.dispatchCode || 'No dispatch code'#
+						</li>
+						<li>
+							#=model.info.locatioName || 'No location name'#
+						</li>
+						<li>
+							#=model.info.status || 'No status'#
+						</li>
+					</ul>
+				</div>
+			</div>
+			<ul layout="column">
+				<li>Booked on #=model.info.bookedDate || 'No booked date'# by #=model.info.salesPerson || 'No sales person'#</li>
+				<li>Scheduled for #=model.info.scheduledDate || 'No scheduled date'#</li>
+				<li class="notes"><strong>Notes: </strong>#=model.info.notes || 'Notes empty'#</li>
+			</ul>
+	  	</div>
+      #} else {#
+		<strong>No event data is available</strong>
+      #}#
+    #}#
+</script>

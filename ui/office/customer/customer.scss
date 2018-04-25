@@ -1,0 +1,78 @@
+.editable-address {
+	input {
+		margin-bottom: 15px;
+	}
+
+	.editable-buttons {
+		display: block;
+		text-align: right;
+	}
+}
+
+.customer-information-panel {
+	uib-accordion {
+		margin-top: 15px;
+	}
+}
+
+#customer-create {
+	.md-errors-spacer {
+		min-height: 0;
+	}
+	md-autocomplete {
+		min-width: auto;
+	}
+}
+
+.k-datetimepicker {
+	width: 100%;
+}
+
+#service-request {
+	md-checkbox {
+		margin-bottom: 0px;
+	}
+  	md-icon.pointer {
+	  	margin: 0px;
+	}
+	mdp-date-picker .md-button.md-icon-button {
+		margin: 20px 0 0 0;
+		padding-right: 26px;
+	}
+}
+
+#customer-list {
+	.k-grid-content.k-auto-scrollable > table > tbody > tr > td:nth-child(5) {
+		text-align: center;
+	}
+
+	.create-customer {
+		margin: 0;
+	}
+
+	.k-grid-content {
+		min-height: 200px;
+	}
+}
+
+input[google-place]::-webkit-input-placeholder {
+	opacity: 0;
+}
+
+input[google-place]:-moz-placeholder {
+	opacity: 0;
+}
+
+input[google-place]::-moz-placeholder {
+	opacity: 0;
+}
+
+input[google-place]:-ms-input-placeholder {
+	opacity: 0;
+}
+
+md-radio-button {
+	.md-label {
+		display: block;
+	}
+}

@@ -1,0 +1,15 @@
+
+<md-content layout="column" flex>
+	<md-card>
+		<table-searchable
+				columns="tCtrl.tableLayout"
+				config="tCtrl.tableConfig"
+				progress="tCtrl.promise"
+				data="tCtrl.tableData"
+				filters="tCtrl.tableFilter"
+				create-item="tCtrl.tableConfig.createTechnician"
+				create-label="Create Technician"
+				action="tCtrl.tableConfig.action">
+		</table-searchable>
+	</md-card>
+</md-content>

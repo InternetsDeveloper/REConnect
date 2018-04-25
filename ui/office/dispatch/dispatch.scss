@@ -1,0 +1,397 @@
+@import '../../variables';
+
+.disable-pointer-events {
+    pointer-events: none;
+}
+
+.k-tooltip-content {
+	text-align: left;
+	padding: 7.5px;
+	ul {
+		list-style-type: none;
+	    margin: 0;
+    	padding: 0;
+    }
+}
+
+.appointment-hover {
+	.notes {
+		margin-top: 5px;
+	}
+}
+
+#dispatch-board {
+	
+
+
+	.gm-style-iw {
+	    overflow:hidden !important;
+	    max-width:300px;
+	    min-height:75px;
+	    max-height:175px
+	}
+
+	.gm-style-iw > div{
+	    overflow:hidden !important;
+	    max-width:300px;
+	    min-height:75px;
+	    max-height:175px;
+	}
+
+	.appt-info-window {
+		overflow:hidden !important;
+		h2 {
+			font-size: 18px;
+			margin: 0;
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+	}
+
+	.k-custom-dropdown {
+		background-color: #fff;
+		border-color: rgb(240, 240, 240);
+	}
+
+	.k-scheduler-timelineMonthview > tbody > tr:nth-child(1) .k-scheduler-table tr:nth-child(2) {
+		display: none;
+	}
+
+	/* Kendo UI Scheduler */
+	.k-widget.k-scheduler {
+		.department-droplist {
+			margin-right: 5px;
+		}
+	}
+
+	.k-event {
+		color: #78797d;
+		border-radius: 4px;
+		background: #fdfdfd;
+		border-color: rgba(120, 121, 125, 0.55);
+
+		& > .k-event-actions {
+			display: none;
+		}
+
+		& > .custom-event {
+			height: 100%;
+
+			& > .location {
+				height: 100%;
+				display: inline-block;
+				border-left: 8px solid #9e9e9e;
+
+				&.location-1 {
+					border-left-color: $location-1;
+				}
+
+				&.location-2 {
+					border-left-color: $location-2;
+				}
+
+				&.location-3 {
+					border-left-color: $location-3;
+				}
+
+				&.location-4 {
+					border-left-color: $location-4;
+				}
+
+				&.location-5 {
+					border-left-color: $location-5;
+				}
+
+				&.location-6 {
+					border-left-color: $location-6;
+				}
+
+				&.location-7 {
+					border-left-color: $location-7;
+				}
+
+				&.location-8 {
+					border-left-color: $location-8;
+				}
+
+				&.location-9 {
+					border-left-color: $location-9;
+				}
+
+				&.location-10 {
+					border-left-color: $location-10;
+				}
+			}
+
+			& > md-icon {
+				text-align: center;
+				vertical-align: super;
+
+				&.fa-no-icon {
+					vertical-align: middle;
+				}
+			}
+
+			& > .customer-name {
+				vertical-align: super;
+			}
+		}
+	}
+
+
+
+	.k-scheduler-toolbar > ul.k-reset.k-header.k-scheduler-views > li.k-current-view > a:after {
+		width: 1.2em;
+		height: 1.2em;
+		background-position: -13px -30px;
+	}
+
+	.k-scheduler-content {
+		& > .k-scheduler-table {
+			& > tbody {
+				& > tr:nth-child(odd) {
+					background-color: rgba(130, 177, 255, 0.55);
+				}
+
+				& > tr {
+					& > td {
+						&:nth-child(4n+1) {
+							border-left-color: rgba(0, 0, 0, 0.16);
+						}
+
+						&.k-today {
+							background-color: rgba(233, 233, 233, 0);
+						}
+					}
+
+					& > .k-nonwork-hour {
+						background-color: rgba(80, 103, 142, 0.08);
+					}
+				}
+			}
+		}
+	}
+
+	.location-droplist,
+	.department-droplist {
+		& > span > span.k-input {
+			height: 30px;
+			line-height: 30px;
+		}
+
+		& > span > span.k-select {
+			line-height: 35px;
+		}
+
+		@media (max-width: 1024px) {
+			width: 50%;
+		}
+
+		@media (max-width: 790px) {
+			width: 100%;
+		}
+	}
+
+	/* Google Map */
+	ui-gmap-google-map,
+	.angular-google-map-container {
+		height: 500px;
+		width: 100%;
+
+		@media (min-width: 1280px) {
+			max-width: 500px;
+		}
+	}
+
+	/* Kendi UI Grid */
+	.k-grid.k-widget {
+		& > .k-header.k-grid-toolbar {
+			border: 0;
+			height: auto;
+			padding: 0;
+			background-color: rgb(21,101,192);
+		}
+
+		.location-droplist {
+			margin-left: 10px;
+
+			@media (max-width: 1024px) {
+				margin-left: 0;
+				margin-bottom: 5px;
+			}
+		}
+
+		& > .k-grid-header {
+			& > .k-grid-header-wrap {
+				& > table {
+					& > thead {
+						& > tr {
+							&:first-of-type {
+								& > th {
+									padding: .786em .6em;
+								}
+							}
+
+							&.k-filter-row {
+								& > th {
+									& > .k-filtercell {
+										& > .k-operator-hidden{
+											padding-right: 0;
+
+											& > .k-button.k-button-icon {
+												display: none;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		& > .k-pager-wrap.k-grid-pager.k-widget.k-floatwrap {
+			font-size: 13px;
+		}
+
+		.request-row {
+			& > td {
+				font-size: 13px;
+
+				&.location-1 {
+					border-left: 5px solid $location-1;
+				}
+
+				&.location-2 {
+					border-left: 5px solid $location-2;
+				}
+
+				&.location-3 {
+					border-left: 5px solid $location-3;
+				}
+
+				&.location-4 {
+					border-left: 5px solid $location-4;
+				}
+
+				&.location-5 {
+					border-left: 5px solid $location-5;
+				}
+
+				&.location-6 {
+					border-left: 5px solid $location-6;
+				}
+
+				&.location-7 {
+					border-left: 5px solid $location-7;
+				}
+
+				&.location-8 {
+					border-left: 5px solid $location-8;
+				}
+
+				&.location-9 {
+					border-left: 5px solid $location-9;
+				}
+
+				&.location-10 {
+					border-left: 5px solid $location-10;
+				}
+
+				& > .md-button {
+					font-size: 20px;
+				}
+			}
+		}
+	}
+
+	#columnMenuButton {
+		float: right;
+		display: inline-block;
+
+		& > .md-button {
+			padding: 0;
+			width: 28px;
+			height: 30px;
+			min-height: 21px;
+			margin: 10px 10px 0 0;
+
+			& > span {
+				font-size: 24px;
+			}
+		}
+	}
+}
+
+#kendo-dragTooltip {
+	color: #78797d;
+	border-radius: 4px;
+	background: #fdfdfd;
+	border-left: 8px solid #9e9e9e;
+	border-color: rgba(120, 121, 125, 0.55);
+}
+
+.kendo-location-dropdown {
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	visibility: hidden;
+	margin: 0 5px 3px 0;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: #ffffff;
+
+	&.location-1 {
+		visibility: visible;
+		background-color: $location-1;
+	}
+
+	&.location-2 {
+		visibility: visible;
+		background-color: $location-2;
+	}
+
+	&.location-3 {
+		visibility: visible;
+		background-color: $location-3;
+	}
+
+	&.location-4 {
+		visibility: visible;
+		background-color: $location-4;
+	}
+
+	&.location-5 {
+		visibility: visible;
+		background-color: $location-5;
+	}
+
+	&.location-6 {
+		visibility: visible;
+		background-color: $location-6;
+	}
+
+	&.location-7 {
+		visibility: visible;
+		background-color: $location-7;
+	}
+
+	&.location-8 {
+		visibility: visible;
+		background-color: $location-8;
+	}
+
+	&.location-9 {
+		visibility: visible;
+		background-color: $location-9;
+	}
+
+	&.location-10 {
+		visibility: visible;
+		background-color: $location-10;
+	}
+}

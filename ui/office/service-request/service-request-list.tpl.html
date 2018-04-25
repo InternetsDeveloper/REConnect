@@ -1,0 +1,101 @@
+<div layout-xs="column" layout-sm="column" layout-gt-sm="row" id="service-request-list">
+	<div ng-init="srCtrl.initializeData()" flex>
+		<section layout="column" layout-gt-sm="row">
+			<md-card flex="50" layout-align="start start">
+				<md-card-title>
+					<span class="md-headline">Service Requests Quick Filters</span>
+				</md-card-title>
+				<md-card-content>
+					<div>
+						<md-button
+							ng-repeat="range in srCtrl.presetRanges"
+							ng-click="srCtrl.updateActiveRange(range)"
+							ng-class="{'range-selected': range.selected}">
+							{{range.label}}
+						</md-button>
+					</div>
+				</md-card-content>
+			</md-card>
+			<md-card flex="50">
+				<md-card-title>
+					<span class="md-headline">Custom Date Range</span>
+				</md-card-title>
+				<md-card-content>
+					<form name="dateRangeForm">
+						<md-content>
+							<date-range name="dateRange" ng-model="srCtrl.date"></date-range>
+						</md-content>
+					</form>
+				</md-card-content>
+				<md-card-footer>
+					<small>
+						<strong>NOTE:</strong> when selecting a large date range, it will take longer for results to display.
+					</small>
+				</md-card-footer>
+			</md-card>
+		</section>
+		<section layout="column" layout-gt-sm="row">
+			<md-card flex flex-gt-sm="25">
+				<md-card-content>
+					<div class="tag-container md-body-1" layout-margin layout-align="space-between start">
+						<fieldset>
+							<legend>Status</legend>
+							<div ng-repeat="status in srCtrl.statusGroup">
+								<div ng-show="status">
+									<md-checkbox class="md-block" ng-model="srCtrl.useStatus[status]" aria-label="{{status}}">
+										{{status + ' (' + (srCtrl.filteredServiceRequests | filter:{'status':status}).length + ')'}}
+									</md-checkbox>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Type</legend>
+							<div ng-repeat="type in srCtrl.typeGroup" >
+								<div ng-show="type">
+									<md-checkbox class="md-block" ng-model="srCtrl.useType[type]" aria-label="{{type}}">
+										{{type + ' (' + (srCtrl.filteredServiceRequests | filter:{'type':type}).length + ')'}}
+									</md-checkbox>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset ng-if="">
+							<legend>Technician</legend>
+							<div ng-repeat="technician in srCtrl.technicianGroup">
+								<div ng-show="technician">
+									<md-checkbox class="md-block" ng-model="srCtrl.useTechnician[technician]" aria-label="{{technician}}">
+										{{technician + ' (' + (srCtrl.filteredServiceRequests | filter:{'service_request_technician':technician}).length + ')'}}
+									</md-checkbox>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Department</legend>
+							<div ng-repeat="department in srCtrl.departmentGroup">
+								<div ng-show="department">
+									<md-checkbox class="md-block" ng-model="srCtrl.useDepartment[department]" aria-label="{{department}}">
+										{{department + ' (' + (srCtrl.filteredServiceRequests | filter:{'departmentName':department}).length + ')'}}
+									</md-checkbox>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</md-card-content>
+			</md-card>
+			<md-card flex>
+				<md-card-title>
+					<span class="md-headline">Service Requests <span ng-bind="srCtrl.activeRange.rangeLabel"></span></span>
+				</md-card-title>
+				<md-card-content>
+					<table-searchable
+						columns="srCtrl.tableLayout"
+						config="srCtrl.tableConfig"
+						progress="srCtrl.promise"
+						data="srCtrl.tableData"
+						filters="srCtrl.tableFilter"
+						create-label="Create Customer">
+					</table-searchable>
+				</md-card-content>
+			</md-card>
+		</section>
+	</div>
+</div>

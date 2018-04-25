@@ -1,0 +1,13 @@
+<md-content layout="column" flex>
+	<md-card>
+		<table-searchable
+				columns="customerList.tableLayout"
+				config="customerList.tableConfig"
+				progress="customerList.promise"
+				data="customerList.tableData"
+				filters="customerList.tableFilter"
+				create-item="customerList.tableConfig.createCustomer"
+				create-label="Create Customer">
+		</table-searchable>
+	</md-card>
+</md-content>

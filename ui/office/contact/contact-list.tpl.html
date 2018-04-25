@@ -1,0 +1,96 @@
+<md-card class="secondary-header">
+	<div layout="row" layout-align="start center">
+		<p class="secondary-header-text" flex>Contacts</p>
+	</div>
+	<md-card-content layout="row" layout-align="start center">
+			<div class="border-right" flex="5">
+				<div layout="row" layout-align="center center">
+					<md-button class="md-icon-button fa-lg" ng-click="contactList.checkAll()" ng-model="selectAll">
+						<i class="fa fa-check-square-o icons" aria-hidden="true"></i>
+					</md-button>
+				</div>
+			</div>
+			<div class="border-right padding-right" flex="20">
+				<div layout="row" layout-align="center center">
+					<md-button class="md-icon-button fa-lg" flex="20">
+						<i class="fa fa-envelope icons" aria-hidden="true"></i>
+					</md-button>
+					<md-button class="md-icon-button fa-lg" flex="20">
+						<i class="fa fa-plus-square icons" aria-hidden="true"></i>
+					</md-button>
+					<md-button class="md-icon-button fa-lg" flex="20">
+						<i class="fa fa-download icons" aria-hidden="true"></i>
+					</md-button>
+					<md-button class="md-icon-button fa-lg" flex="20" ui-sref="worthClark.contact.import">
+							<i class="fa fa-upload icons" aria-hidden="true"></i>
+					</md-button>
+					<md-button class="md-icon-button fa-lg" ng-click="contactList.deleteContact()" flex="20">
+						<i class="fa fa-trash icons" aria-hidden="true"></i>
+					</md-button>
+				</div>
+			</div>
+			<md-input-container class="search-box" flex="70">
+				<label>
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</label>
+				<input class="padding" name="search" ng-model="contactList.search" />
+			</md-input-container>
+			<div flex="5">
+				<div layout="row" layout-align="center center">
+					<md-button class="md-icon-button fa-lg">
+						<i class="fa fa-sliders icons" aria-hidden="true"></i>
+					</md-button>
+				</div>
+			</div>
+	</md-card-content>
+</md-card>
+<md-card>
+	<md-table-container class="mdl-shadow--2dp">
+		<table md-table md-progress="contactList.promise">
+			<thead md-head md-order="contactList.tableConfig.order">
+				<tr layout="row">
+					<th md-column flex="33" md-order-by="name">Name</th>
+					<th md-column flex="33">Email</th>
+					<th md-column flex="10" ng-click="contactList.confirm()">Market</th>
+					<th md-column flex="10">Contact Type</th>
+					<th md-column flex="10" md-order-by="lead">Assigned To</th>
+					<th md-column flex="10"></th>
+				</tr>
+			</thead>
+			<tbody md-body>
+				<tr layout="row" ng-repeat="contact in contactList.contacts | filter: contactList.search | orderBy: contactList.tableConfig.order | limitTo: contactList.tableConfig.limit : (contactList.tableConfig.page - 1) * contactList.tableConfig.limit">
+					<td md-cell flex="33">
+						<span ng-if="contact.photo_url.length > 0">
+							<md-checkbox ng-model="contact.checked" ng-change="selectedContacts()" aria-label="Finished?"></md-checkbox>
+							<img class="image--cover" src="{{contact.photo_url}}" alt="image"/>
+							<span ng-bind="contact.name"></span>
+						</span>
+						<span ng-if="contact.photo_url.length < 1">
+							<md-checkbox ng-model="contact.checked" ng-change="selectedContacts()" aria-label="Finished?"></md-checkbox>
+							<img class="image--cover" src="/images/noimage.png" alt="no image"/>
+							<span ng-bind="contact.name"></span>
+						</span>
+					</td>
+					<td md-cell flex="33" ng-bind="contact.email"></td>
+					<td md-cell flex="10">
+						<div ng-repeat="market in contact.markets">
+							<div ng-bind="market.display_name"></div>
+						</div>
+					</td>
+					<td md-cell flex="10">
+						<div ng-repeat="role in contact.roles">
+							<div ng-bind="role.rolegroup.display_name"></div>
+						</div>
+					</td>
+					<td md-cell flex="10" ng-bind="contact.lead ? contact.lead.name : 'Not Assigned'"></td>
+					<td md-cell flex="10">
+						<a ui-sref="worthClark.contact.detail({ id:contact.id })">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<md-table-pagination md-limit="contactList.tableConfig.limit" md-page="contactList.tableConfig.page" md-total="{{contactList.contacts.length}}" md-page-select="contactList.options.pageSelect" md-boundary-links="contactList.options.boundaryLinks"></md-table-pagination>
+</md-card>

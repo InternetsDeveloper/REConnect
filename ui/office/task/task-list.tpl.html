@@ -1,0 +1,13 @@
+<md-content layout="column" flex>
+	<md-card>
+		<table-searchable
+				columns="taskList.tableLayout"
+				config="taskList.tableConfig"
+				progress="taskList.promise"
+				data="taskList.tableData"
+				filters="taskList.tableFilter"
+				create-item="taskList.tableConfig.createTask"
+				create-label="Create Task">
+		</table-searchable>
+	</md-card>
+</md-content>
