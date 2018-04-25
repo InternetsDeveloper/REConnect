@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /var/www/ui
+
+permissions:
+   - object: /var/www/ui
+     pattern: "**"
+     owner: ubuntu
+     group: ubuntu
+     mode: 775
+
+hooks:
+
+  AfterInstall:
+    - location: build/after_build.sh
+      timeout: 450
+      runas: ubuntu
+
+  ApplicationStart:
+    - location: build/start.sh
+      timeout: 60
+      runas: ubuntu

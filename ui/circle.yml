@@ -1,0 +1,119 @@
+## Customize the test machine
+machine:
+  node:
+    version: 7.10.0
+
+  timezone:
+    America/Chicago # Set the timezone
+
+  # Version of ruby to use
+#  ruby:
+#    version:
+#      1.8.7-p358-falcon-perf
+
+  # Override /etc/hosts
+#  hosts:
+#    circlehost: 127.0.0.1
+#    dev.mycompany.com: 127.0.0.1
+
+  # Add some environment variables
+  environment:
+    ENV: stage
+
+## Customize checkout
+#checkout:
+#  post:
+#    - git submodule sync
+#    - git submodule update --init # use submodules
+  python:
+    version: 2.7.3
+
+  services:
+    - docker
+
+## Customize dependencies
+dependencies:
+  pre:
+    - pip install awscli
+    - npm install
+    - npm install -g gulp
+    - npm install pm2 -g
+    - gulp
+
+  override:
+    - aws configure set default.region us-east-1
+    - eval $(aws ecr get-login)
+    - docker build -t worthclark-stage .
+#    post:
+#        - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/worthclark-ui:$CIRCLE_SHA1 .
+
+#  pre:
+#    - npm install coffeescript # install from a different package manager
+#    - gem uninstall bundler # use a custom version of bundler
+#    - gem install bundler --pre
+#
+#  override:
+#    - bundle install: # note ':' here
+#        timeout: 180 # fail if command has no output for 3 minutes
+#        # IMPORTANT NOTE: ^^ the timeout modifier above must be
+#        # double indented (four spaces) from the previous line
+#
+#  # we automatically cache and restore many dependencies between
+#  # builds. If you need to, you can add custom paths to cache:
+#  cache_directories:
+#    - "custom_1"   # relative to the build directory
+#    - "~/custom_2" # relative to the user's home directory
+
+## Customize database setup
+#database:
+#  override:
+#    # replace CircleCI's generated database.yml
+##    - cp config/database.yml.ci config/database.yml
+##    - bundle exec rake db:create db:schema:load
+
+## Customize test commands
+test:
+  override:
+    - docker run -d -p 3000:3000 worthclark-stage; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
+#  post:
+#    - docker run -d -p 3000:3000 --name worthclark-ui $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/worthclark-ui:$CIRCLE_SHA1; sleep 10
+#    - curl --retry 10 --retry-delay 5 localhost:3000 | grep "Hello World!"
+##  override:
+##    - phpunit test/unit-tests # use PHPunit for testing
+#  post:
+##    - bundle exec rake jasmine:ci: # add an extra test type
+##        environment:
+##          RAILS_ENV: test
+##          RACK_ENV: test
+#
+### Customize deployment commands
+#deployment:
+#  staging:
+#    branch: release-0.0.2
+#    codedeploy:
+#      my-app:
+#        application_root: /
+#        region: us-east-1
+#        revision_location:
+#          revision_type: S3
+#          s3_location:
+#            bucket: worthclark-codedeploy
+#            key_pattern: my-app-{BRANCH}-{SHORT_COMMIT}
+#        deployment_group: worthclark-ui
+
+deployment:
+  hub:
+    branch: release-0.0.3 ## do deployment on commit to the master branch only
+    commands:
+      - docker tag worthclark-stage 101986249077.dkr.ecr.us-east-1.amazonaws.com/worthclark-stage:$CIRCLE_SHA1
+      - docker tag worthclark-stage 101986249077.dkr.ecr.us-east-1.amazonaws.com/worthclark-stage:latest
+      - docker push 101986249077.dkr.ecr.us-east-1.amazonaws.com/worthclark-stage:$CIRCLE_SHA
+      - docker push 101986249077.dkr.ecr.us-east-1.amazonaws.com/worthclark-stage:latest
+      - ./stage_deploy.sh
+
+## Custom notifications
+#notify:
+#  webhooks:
+#    # A list of hashes representing hooks. Only the url field is supported.
+#    - url: https://someurl.com/hooks/circle

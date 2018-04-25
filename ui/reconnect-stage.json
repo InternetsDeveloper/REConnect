@@ -1,0 +1,19 @@
+{
+	"family": "worthclark-stage",
+	"containerDefinitions": [
+		{
+			"image": "101986249077.dkr.ecr.us-east-1.amazonaws.com/worthclark-stage:1",
+			"name": "staging",
+			"cpu": 384,
+			"memory": 512,
+			"essential": true,
+			"portMappings": [
+				{
+					"containerPort": 3000,
+					"hostPort": 80,
+					"protocol": "tcp"
+				}
+			]
+		}
+	]
+}
