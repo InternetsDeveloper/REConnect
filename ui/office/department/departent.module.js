@@ -1,9 +1,9 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.department
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.department', []);
+    /**
+     * @class reConnect.department
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.department', []);
 })();

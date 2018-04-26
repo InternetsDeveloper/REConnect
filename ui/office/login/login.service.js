@@ -1,22 +1,22 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('worthClark.login')
-		.factory('loginService', ['$http', '$rootScope', '$window', function($http, $rootScope, $window) {
-			function checkSession() {
-				return $window.sessionStorage.getItem('authenticated') === 'true';
-			}
+    angular
+        .module('reConnect.login')
+        .factory('loginService', ['$http', '$rootScope', '$window', function ($http, $rootScope, $window) {
+            function checkSession() {
+                return $window.sessionStorage.getItem('authenticated') === 'true';
+            }
 
-			function destroySession() {
-				$window.sessionStorage.setItem('authentication-event-date', new Date());
-				$window.sessionStorage.setItem('authenticated', 'true');
-				$rootScope.$broadcast('sessionChange');
-			}
+            function destroySession() {
+                $window.sessionStorage.setItem('authentication-event-date', new Date());
+                $window.sessionStorage.setItem('authenticated', 'true');
+                $rootScope.$broadcast('sessionChange');
+            }
 
-			return {
-				checkSession: checkSession,
-				destroySession: destroySession
-			};
+            return {
+                checkSession: checkSession,
+                destroySession: destroySession
+            };
 		}]);
 })();

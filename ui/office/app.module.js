@@ -1,10 +1,10 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @namespace worthClark
-	 */
-	angular.module('worthClark', [
+    /**
+     * @namespace reConnect
+     */
+    angular.module('reConnect', [
 		'ui.router',
 		'ngAnimate',
 		'ngMaterial',
@@ -14,30 +14,28 @@
 		'formly',
 		'formlyMaterial',
 		'uiGmapgoogle-maps',
-		'worthClark.login',
-		'worthClark.contact',
-		'worthClark.home',
-		'worthClark.task',
-		'worthClark.marketing',
-		'worthClark.report',
-		'worthClark.propertymanagement',
-		'worthClark.fileUpload',
-		'worthClark.callScripts',
-		'worthClark.login',
-		'worthClark.dispatch',
-		'worthClark.customer',
-		'worthClark.serviceRequest',
-		'worthClark.dispatchCode',
-		'worthClark.technician',
-		'worthClark.note',
-		'worthClark.department',
-		'worthClark.product',
-		'worthClark.address',
-		'worthClark.agreements',
-		'worthClark.tags',
-		'worthClark.utils.pushIn',
-		'worthClark.formIntegrity'
+		'reConnect.login',
+		'reConnect.contact',
+		'reConnect.home',
+		'reConnect.task',
+		'reConnect.marketing',
+		'reConnect.report',
+		'reConnect.propertymanagement',
+		'reConnect.fileUpload',
+		'reConnect.callScripts',
+		'reConnect.login',
+		'reConnect.dispatch',
+		'reConnect.customer',
+		'reConnect.serviceRequest',
+		'reConnect.dispatchCode',
+		'reConnect.technician',
+		'reConnect.note',
+		'reConnect.department',
+		'reConnect.product',
+		'reConnect.address',
+		'reConnect.agreements',
+		'reConnect.tags',
+		'reConnect.utils.pushIn',
+		'reConnect.formIntegrity'
 	]);
 })();
-
-

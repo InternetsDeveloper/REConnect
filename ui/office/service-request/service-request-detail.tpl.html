@@ -1,207 +1,211 @@
 <md-content id="service-request-details" class="md-padding" layout-gt-md="row" layout="column" layout-wrap>
 
-	<section flex="100" layout="row">
-		<md-card flex="50">
-			<md-toolbar calss="md-accent">
-				<div class="md-toolbar-tools">
-					<h2>Service Request Information</h2>
-				</div>
-			</md-toolbar>
-			<md-card-content layout="row">
+    <section flex="100" layout="row">
+        <md-card flex="50">
+            <md-toolbar calss="md-accent">
+                <div class="md-toolbar-tools">
+                    <h2>Service Request Information</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content layout="row">
 
-				<md-list flex="50">
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-user custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3>
-								<a ui-sref="worthClark.customer.detail({ id: sr.model.customerId })" ng-bind="sr.model.serviceInfo.name"></a>
+                <md-list flex="50">
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-user custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3>
+								<a ui-sref="reConnect.customer.detail({ id: sr.model.customerId })" ng-bind="sr.model.serviceInfo.name"></a>
 								<md-icon md-font-icon="fa fa-heart" ng-show="sr.model.agreements"></md-icon>
 							</h3>
-							<h3 ng-bind="sr.model.serviceInfo.company"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-map-marker custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.serviceInfo.address"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-phone custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.serviceInfo.mobilePhone"></h3>
-							<h3 ng-bind="sr.model.serviceInfo.homePhone"></h3>
-							<h3 ng-bind="sr.model.serviceInfo.workPhone"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-envelope custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.serviceInfo.email"></h3>
-						</div>
-					</md-list-item>
-				</md-list>
+                            <h3 ng-bind="sr.model.serviceInfo.company"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-map-marker custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.serviceInfo.address"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-phone custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.serviceInfo.mobilePhone"></h3>
+                            <h3 ng-bind="sr.model.serviceInfo.homePhone"></h3>
+                            <h3 ng-bind="sr.model.serviceInfo.workPhone"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-envelope custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.serviceInfo.email"></h3>
+                        </div>
+                    </md-list-item>
+                </md-list>
 
-				<md-list flex="50">
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-clock-o custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.promiseTimestamp"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-circle custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.serviceInfo.location.name | capitalize"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.dispatchCode"></h3>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<md-select ng-model="sr.model.status" ng-change="sr.saveStatus()" aria-label="Service Request Status">
-								<md-option ng-repeat="status in sr.statuses" ng-value="status.id" ng-bind="status.name"></md-option>
-							</md-select>
-						</div>
-					</md-list-item>
-					<md-list-item class="md-1-line">
-						<md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
-						<div class="md-list-item-text">
-							<h3 ng-bind="sr.model.priority"></h3>
-						</div>
-					</md-list-item>
-				</md-list>
+                <md-list flex="50">
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-clock-o custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.promiseTimestamp"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-circle custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.serviceInfo.location.name | capitalize"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.dispatchCode"></h3>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <md-select ng-model="sr.model.status" ng-change="sr.saveStatus()" aria-label="Service Request Status">
+                                <md-option ng-repeat="status in sr.statuses" ng-value="status.id" ng-bind="status.name"></md-option>
+                            </md-select>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-1-line">
+                        <md-icon md-font-icon="fa fa-cubes custom-icon-size"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3 ng-bind="sr.model.priority"></h3>
+                        </div>
+                    </md-list-item>
+                </md-list>
 
-			</md-card-content>
-		</md-card>
+            </md-card-content>
+        </md-card>
 
-		<md-card flex="50">
-			<md-toolbar calss="md-accent">
-				<div class="md-toolbar-tools">
-					<h2>Appointments</h2>
-				</div>
-			</md-toolbar>
-			<md-card-content>
-				<md-list>
-					<md-list-item class="md-2-line" ng-repeat="appt in sr.model.appointments">
-						<img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="Technician Image" />
-						<div class="md-list-item-text" layout="column">
-							<md-select ng-model="appt.techId" ng-change="sr.updateAppt(appt)" aria-label="Appointment Technician">
-								<md-option ng-repeat="technician in sr.technicians" ng-value="technician.id" ng-bind="technician.full_name"></md-option>
-							</md-select>
-							<p>
-								<span ng-hide="appt.editing" ng-click="sr.apptTimeEdit(appt)" ng-bind="appt.timestamp" class="pointer"></span>
-								<md-icon md-menu-origin md-font-icon="fa fa-caret-down" ng-if="sr.showApptTimeEdit(appt)" ng-hide="appt.editing" ng-click="sr.apptTimeEdit(appt)" class="pointer"></md-icon>
-								<div ng-show="appt.editing && !sr.showDispatch(appt)">
-									<div flex="100" layout="row">
-										<md-input-container flex="50">
-											<input kendo-date-picker ng-model="appt.day" k-ng-model="appt.timestampDay" aria-label="Appointment Date"/>
-										</md-input-container>
-										<md-input-container flex="50">
-											<input kendo-time-picker ng-model="appt.hour" k-ng-model="appt.timestampHour" k-options="sr.timePickerSettings" aria-label="Appointment Time"/>
-										</md-input-container>
-									</div>
-									<div flex="100" layout="row" layout-align="end center">
-										<md-button class="md-warn" ng-click="sr.cancelApptTimeEdit(appt)">Cancel</md-button>
-										<md-button class="md-primary" ng-click="sr.saveApptTimeEdit(appt)">Save</md-button>
-									</div>
-								</div>
-							</p>
-						</div>
-						<p class="md-secondary-container" layout-align="end start">
-							<span ng-bind="appt.status"></span>
-							<md-menu>
-								<md-button aria-label="Change Notification Settings" class="md-icon-button" ng-click="$mdMenu.open()">
-									<md-icon md-menu-origin md-font-icon="fa fa-caret-down"></md-icon>
-								</md-button>
-								<md-menu-content>
-									<md-menu-item>
-										<span flex>Customer Notifications</span>
-										<md-switch flex="25" class="md-primary" ng-change="sr.updateAppt(appt)" ng-model="appt.notifyCustomer" aria-label="Customer Notifications"></md-switch>
-									</md-menu-item>
-									<md-menu-divider></md-menu-divider>
-									<md-menu-item layout-align="start center">
-										<span flex>Tech Notifications</span>
-										<md-switch flex="25" class="md-primary" ng-change="sr.updateAppt(appt)" ng-model="appt.notifyTech" aria-label="Tech Notifications"></md-switch>
-									</md-menu-item>
-									<md-menu-divider></md-menu-divider>
-									<md-menu-item><md-button ng-click="sr.dispatch(appt)">Dispatch Appointment</md-button></md-menu-item>
-									<md-menu-divider></md-menu-divider>
-									<md-menu-item><md-button ng-click="sr.showAppointmentConfirm(appt)">Cancel Appointment</md-button></md-menu-item>
-								</md-menu-content>
-							</md-menu>
-						</p>
-						<md-divider ng-if="!$last"></md-divider>
-					</md-list-item>
-				</md-list>
-			</md-card-content>
-		</md-card>
-	</section>
+        <md-card flex="50">
+            <md-toolbar calss="md-accent">
+                <div class="md-toolbar-tools">
+                    <h2>Appointments</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <md-list>
+                    <md-list-item class="md-2-line" ng-repeat="appt in sr.model.appointments">
+                        <img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="Technician Image" />
+                        <div class="md-list-item-text" layout="column">
+                            <md-select ng-model="appt.techId" ng-change="sr.updateAppt(appt)" aria-label="Appointment Technician">
+                                <md-option ng-repeat="technician in sr.technicians" ng-value="technician.id" ng-bind="technician.full_name"></md-option>
+                            </md-select>
+                            <p>
+                                <span ng-hide="appt.editing" ng-click="sr.apptTimeEdit(appt)" ng-bind="appt.timestamp" class="pointer"></span>
+                                <md-icon md-menu-origin md-font-icon="fa fa-caret-down" ng-if="sr.showApptTimeEdit(appt)" ng-hide="appt.editing" ng-click="sr.apptTimeEdit(appt)" class="pointer"></md-icon>
+                                <div ng-show="appt.editing && !sr.showDispatch(appt)">
+                                    <div flex="100" layout="row">
+                                        <md-input-container flex="50">
+                                            <input kendo-date-picker ng-model="appt.day" k-ng-model="appt.timestampDay" aria-label="Appointment Date" />
+                                        </md-input-container>
+                                        <md-input-container flex="50">
+                                            <input kendo-time-picker ng-model="appt.hour" k-ng-model="appt.timestampHour" k-options="sr.timePickerSettings" aria-label="Appointment Time" />
+                                        </md-input-container>
+                                    </div>
+                                    <div flex="100" layout="row" layout-align="end center">
+                                        <md-button class="md-warn" ng-click="sr.cancelApptTimeEdit(appt)">Cancel</md-button>
+                                        <md-button class="md-primary" ng-click="sr.saveApptTimeEdit(appt)">Save</md-button>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                        <p class="md-secondary-container" layout-align="end start">
+                            <span ng-bind="appt.status"></span>
+                            <md-menu>
+                                <md-button aria-label="Change Notification Settings" class="md-icon-button" ng-click="$mdMenu.open()">
+                                    <md-icon md-menu-origin md-font-icon="fa fa-caret-down"></md-icon>
+                                </md-button>
+                                <md-menu-content>
+                                    <md-menu-item>
+                                        <span flex>Customer Notifications</span>
+                                        <md-switch flex="25" class="md-primary" ng-change="sr.updateAppt(appt)" ng-model="appt.notifyCustomer" aria-label="Customer Notifications"></md-switch>
+                                    </md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item layout-align="start center">
+                                        <span flex>Tech Notifications</span>
+                                        <md-switch flex="25" class="md-primary" ng-change="sr.updateAppt(appt)" ng-model="appt.notifyTech" aria-label="Tech Notifications"></md-switch>
+                                    </md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item>
+                                        <md-button ng-click="sr.dispatch(appt)">Dispatch Appointment</md-button>
+                                    </md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item>
+                                        <md-button ng-click="sr.showAppointmentConfirm(appt)">Cancel Appointment</md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </p>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </section>
 
-	<section flex="100" layout="row">
-		<md-card flex="50">
-			<md-toolbar calss="md-accent">
-				<div class="md-toolbar-tools">
-					<h2>Notes</h2>
-				</div>
-			</md-toolbar>
-			<md-card-content>
-				<form ng-submit="sr.saveComment()" name="newNote">
-					<md-input-container class="md-block" flex-gt-xs>
-						<label>Leave Note</label>
-						<input type="text" ng-model="sr.comment" />
-					</md-input-container>
-					<div flex="100" layout="row" layout-align="end center">
-						<md-button class="md-raised md-primary" type="submit" ng-disabled="newNote.$invalid">Save</md-button>
-					</div>
-				</form>
-				<md-list>
-					<md-list-item class="md-2-line" ng-repeat="his in sr.model.history">
-						<img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="User Image"/>
-						<div class="md-list-item-text" layout="column">
-							<h3 layout-wrap>
+    <section flex="100" layout="row">
+        <md-card flex="50">
+            <md-toolbar calss="md-accent">
+                <div class="md-toolbar-tools">
+                    <h2>Notes</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <form ng-submit="sr.saveComment()" name="newNote">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Leave Note</label>
+                        <input type="text" ng-model="sr.comment" />
+                    </md-input-container>
+                    <div flex="100" layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary" type="submit" ng-disabled="newNote.$invalid">Save</md-button>
+                    </div>
+                </form>
+                <md-list>
+                    <md-list-item class="md-2-line" ng-repeat="his in sr.model.history">
+                        <img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="User Image" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3 layout-wrap>
 								<span ng-bind="his.description"></span>
 							</h3>
-							<p>
-								<span ng-bind="his.user"></span>
-								<small ng-bind="his.created | date:'MM/dd/yyyy h:mma'"></small>
-							</p>
-						</div>
-					</md-list-item>
-				</md-list>
-			</md-card-content>
-		</md-card>
+                            <p>
+                                <span ng-bind="his.user"></span>
+                                <small ng-bind="his.created | date:'MM/dd/yyyy h:mma'"></small>
+                            </p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
 
-		<md-card flex="50">
-			<md-toolbar calss="md-accent">
-				<div class="md-toolbar-tools">
-					<h2>History</h2>
-				</div>
-			</md-toolbar>
-			<md-card-content>
-				<md-list>
-					<md-list-item class="md-2-line" ng-repeat="his in sr.model.history">
-						<img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="User Image"/>
-						<div class="md-list-item-text" layout="column">
-							<h3>
+        <md-card flex="50">
+            <md-toolbar calss="md-accent">
+                <div class="md-toolbar-tools">
+                    <h2>History</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <md-list>
+                    <md-list-item class="md-2-line" ng-repeat="his in sr.model.history">
+                        <img src="https://material.angularjs.org/latest/img/list/60.jpeg?0" class="md-avatar" alt="User Image" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>
 								<span ng-bind="his.user"></span>
 								<small ng-bind="his.created | date:'MM/dd/yyyy h:mma'"></small>
 							</h3>
-							<p ng-bind="his.description"></p>
-						</div>
-					</md-list-item>
-				</md-list>
-			</md-card-content>
-		</md-card>
-	</section>
+                            <p ng-bind="his.description"></p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </section>
 
-	<section flex="100" layout="row" layout-align="end center">
-		<md-button class="md-raised md-warn md-hue-2" ng-click="sr.showServiceRequestConfirm()">Cancel</md-button>
-		<md-button class="md-raised md-primary" ui-sref="worthClark.customer.detail({ id: sr.model.customerId, srId: sr.model.id })">Edit</md-button>
-	</section>
+    <section flex="100" layout="row" layout-align="end center">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="sr.showServiceRequestConfirm()">Cancel</md-button>
+        <md-button class="md-raised md-primary" ui-sref="worthClark.customer.detail({ id: sr.model.customerId, srId: sr.model.id })">Edit</md-button>
+    </section>
 </md-content>

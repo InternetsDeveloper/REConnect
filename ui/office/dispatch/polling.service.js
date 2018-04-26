@@ -1,108 +1,108 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('worthClark.dispatch')
-		.factory('PollingService', ['$timeout', 'Constants', '$log', '$mdToast', function($timeout, Constants, $log, $mdToast) {
-			function Polling(serviceToPoll, name) {
-				this.name = name;
-				this.service = serviceToPoll;
-				this.debug = false;
-			}
+    angular
+        .module('reConnect.dispatch')
+        .factory('PollingService', ['$timeout', 'Constants', '$log', '$mdToast', function ($timeout, Constants, $log, $mdToast) {
+            function Polling(serviceToPoll, name) {
+                this.name = name;
+                this.service = serviceToPoll;
+                this.debug = false;
+            }
 
-			function log(mode, value) {
-				if(this.debug) {
-					$log[mode](value);
-				}
-			}
+            function log(mode, value) {
+                if (this.debug) {
+                    $log[mode](value);
+                }
+            }
 
-			function delayedStart() {
-				this.delayTimer = $timeout(this.startPolling, Constants.SERVICE_POLLING_INTERVAL, true, this);
-			}
+            function delayedStart() {
+                this.delayTimer = $timeout(this.startPolling, Constants.SERVICE_POLLING_INTERVAL, true, this);
+            }
 
-			function skipPolling() {
-				this.stopPolling();
-				this.refreshTimer = $timeout(this.startPolling, Constants.SERVICE_POLLING_INTERVAL, true, this);
-			}
+            function skipPolling() {
+                this.stopPolling();
+                this.refreshTimer = $timeout(this.startPolling, Constants.SERVICE_POLLING_INTERVAL, true, this);
+            }
 
-			function startPolling(scope) {
-				var self = scope || this;
+            function startPolling(scope) {
+                var self = scope || this;
 
-				if(self.delayTimer) {
-					self.log('info',
-						'Stopping delayTimer for ' + self.name +
-						', delayTimer, ' + self.delayTimer +
-						', cancelled = ' + $timeout.cancel(self.delayTimer));
+                if (self.delayTimer) {
+                    self.log('info',
+                        'Stopping delayTimer for ' + self.name +
+                        ', delayTimer, ' + self.delayTimer +
+                        ', cancelled = ' + $timeout.cancel(self.delayTimer));
 
-					self.delayTimer = null;
-				}
+                    self.delayTimer = null;
+                }
 
-				if(self.refreshTimer) {
-					self.log('warn', 'RefreshTimer already started!');
+                if (self.refreshTimer) {
+                    self.log('warn', 'RefreshTimer already started!');
 
-					return false;
-				}
+                    return false;
+                }
 
-				return self.poll();
-			}
+                return self.poll();
+            }
 
-			function stopPolling() {
-				if(this.delayTimer) {
-					this.log('info',
-						'Stopping delayTimer for ' + this.name +
-						', delayTimer, ' + this.delayTimer +
-						', cancelled = ' + $timeout.cancel(this.delayTimer));
-					this.delayTimer = null;
-				}
+            function stopPolling() {
+                if (this.delayTimer) {
+                    this.log('info',
+                        'Stopping delayTimer for ' + this.name +
+                        ', delayTimer, ' + this.delayTimer +
+                        ', cancelled = ' + $timeout.cancel(this.delayTimer));
+                    this.delayTimer = null;
+                }
 
-				this.log('info',
-					'Stopping refreshTimer for ' + this.name +
-					', refreshTimer, ' + this.refreshTimer +
-					', cancelled = ' + $timeout.cancel(this.refreshTimer));
-			}
+                this.log('info',
+                    'Stopping refreshTimer for ' + this.name +
+                    ', refreshTimer, ' + this.refreshTimer +
+                    ', cancelled = ' + $timeout.cancel(this.refreshTimer));
+            }
 
-			function resetPolling() {
-				this.stopPolling();
+            function resetPolling() {
+                this.stopPolling();
 
-				return this.startPolling();
-			}
+                return this.startPolling();
+            }
 
-			function poll(scope) {
-				var DELAY = 3000,
-					self = scope || this;
+            function poll(scope) {
+                var DELAY = 3000,
+                    self = scope || this;
 
-				self.log('info', 'Refreshing ' + self.name);
+                self.log('info', 'Refreshing ' + self.name);
 
-				return self.service.apply(self).then(function(response) {
-					self.refreshTimer = $timeout(self.poll, Constants.SERVICE_POLLING_INTERVAL, true, self);
+                return self.service.apply(self).then(function (response) {
+                    self.refreshTimer = $timeout(self.poll, Constants.SERVICE_POLLING_INTERVAL, true, self);
 
-					return response;
-				}, function(error) {
-					self.resetPolling();
+                    return response;
+                }, function (error) {
+                    self.resetPolling();
 
-					$mdToast.show(
-								$mdToast.simple()
-									.textContent('Auto refresh failed. Restarting...')
-									.hideDelay(DELAY)
-							);
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('Auto refresh failed. Restarting...')
+                        .hideDelay(DELAY)
+                    );
 
-					return error;
-				});
-			}
+                    return error;
+                });
+            }
 
-			Polling.prototype.delayedStart = delayedStart;
-			Polling.prototype.skipPolling = skipPolling;
-			Polling.prototype.startPolling = startPolling;
-			Polling.prototype.stopPolling = stopPolling;
-			Polling.prototype.resetPolling = resetPolling;
-			Polling.prototype.poll = poll;
-			Polling.prototype.log = log;
+            Polling.prototype.delayedStart = delayedStart;
+            Polling.prototype.skipPolling = skipPolling;
+            Polling.prototype.startPolling = startPolling;
+            Polling.prototype.stopPolling = stopPolling;
+            Polling.prototype.resetPolling = resetPolling;
+            Polling.prototype.poll = poll;
+            Polling.prototype.log = log;
 
-			return {
-				get: function(service, name) {
-					return new Polling(service, name);
-				}
-			};
+            return {
+                get: function (service, name) {
+                    return new Polling(service, name);
+                }
+            };
 		}]);
 })();
 
@@ -111,7 +111,7 @@
 	'use strict';
 
 	angular
-		.module('worthClark.dispatch')
+		.module('reConnect.dispatch')
 		.factory('PollingService', ['$timeout', 'Constants', '$log', function($timeout, Constants, $log) {
 			return function(serviceToPoll, serviceName) {
 				var debug = true,

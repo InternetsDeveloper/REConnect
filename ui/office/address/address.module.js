@@ -1,12 +1,12 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.address
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.address', [
-		'worthClark.utils.states',
-		'worthClark.utils.statesService'
+    /**
+     * @class reConnect.address
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.address', [
+		'reConnect.utils.states',
+		'reConnect.utils.statesService'
 	]);
 })();

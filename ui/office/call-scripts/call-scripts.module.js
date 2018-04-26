@@ -1,11 +1,11 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.callScripts
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.callScripts', [
-		'worthClark.utils.topSlideOut'
+    /**
+     * @class reConnect.callScripts
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.callScripts', [
+		'reConnect.utils.topSlideOut'
 	]);
 })();

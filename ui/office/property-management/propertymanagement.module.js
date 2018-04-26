@@ -1,18 +1,18 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.propertymanagement
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.propertymanagement', [
+    /**
+     * @class reConnect.propertymanagement
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.propertymanagement', [
 		'ngSanitize',
-		'worthClark.utils.validations',
-		'worthClark.utils.tableSearchable',
-		'worthClark.utils.capitalize',
-		'worthClark.utils.tsPhone',
-		'worthClark.formIntegrity',
-		'worthClark.utils.focusauto',
-		'worthClark.utils.dateTime'
+		'reConnect.utils.validations',
+		'reConnect.utils.tableSearchable',
+		'reConnect.utils.capitalize',
+		'reConnect.utils.tsPhone',
+		'reConnect.formIntegrity',
+		'reConnect.utils.focusauto',
+		'reConnect.utils.dateTime'
 	]);
 })();

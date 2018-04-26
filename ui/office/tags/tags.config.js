@@ -1,11 +1,11 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular.module('worthClark.tags')
-		.config(['$stateProvider', function($stateProvider) {
-			$stateProvider.state('worthClark.tags', {
-				url: '/tags',
-				redirectTo: 'worthClark.tags.typeAssign'
-			});
+    angular.module('reConnect.tags')
+        .config(['$stateProvider', function ($stateProvider) {
+            $stateProvider.state('reConnect.tags', {
+                url: '/tags',
+                redirectTo: 'reConnect.tags.typeAssign'
+            });
 		}]);
 })();

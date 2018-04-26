@@ -1,9 +1,9 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.tags
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.tags', []);
+    /**
+     * @class reConnect.tags
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.tags', []);
 })();

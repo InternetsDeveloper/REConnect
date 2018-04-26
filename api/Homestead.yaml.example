@@ -11,10 +11,10 @@ folders:
         to: /home/vagrant/api
 sites:
     -
-        map: api.worthclarkapp.com
+        map: api.reconnectapp.com
         to: /home/vagrant/api/public
 databases:
     - homestead
-    - worthclark
+    - reConnect
 name: api
 hostname: api

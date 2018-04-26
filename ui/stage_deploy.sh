@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-SERVICE_NAME=worthclark-stage
-CLUSTER_NAME=worthclark-ui-stage
+SERVICE_NAME=reConnect-stage
+CLUSTER_NAME=reConnect-ui-stage
 BUILD_NUMBER=${CIRCLE_BUILD_NUM}
 IMAGE_TAG=${CIRCLE_SHA1}
-TASK_FAMILY=worthclark-stage
+TASK_FAMILY=reConnect-stage
 
 # Create a new task definition for this build
-sed -e "s;%IMAGE_TAG%;${IMAGE_TAG};g" ecs-task-template.json > worthclark-stage-${BUILD_NUMBER}.json
-aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://worthclark-stage-${BUILD_NUMBER}.json
+sed -e "s;%IMAGE_TAG%;${IMAGE_TAG};g" ecs-task-template.json > reConnect-stage-${BUILD_NUMBER}.json
+aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://reConnect-stage-${BUILD_NUMBER}.json
 
 # Update the service with the new task definition and desired count
 TASK_REVISION=`aws ecs describe-task-definition --task-definition ${TASK_FAMILY} | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`

@@ -1,11 +1,11 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.imageUpload
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.fileUpload', [
+    /**
+     * @class reConnect.imageUpload
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.fileUpload', [
 		'ngFileUpload'
 	]);
 })();

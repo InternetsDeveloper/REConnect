@@ -2,8 +2,8 @@
 	'use strict';
 
 	/**
-	 * @memberOf worthClark.technician
-	 * @class worthClark.customer.TechDetailController
+	 * @memberOf reConnect.technician
+	 * @class reConnect.customer.TechDetailController
 	 *
 	 * @param {IScope} $scope - Angular scope service.
 	 * @param {ILocation} $location - Angular location service.
@@ -15,7 +15,7 @@
 	 * @param {FormIntegrity} FormIntegrity - @see FormIntegrity
 	 */
 	angular
-		.module('worthClark.technician')
+		.module('reConnect.technician')
 		.controller('TechDetailController', ['$scope', '$location', '$state', '$stateParams', 'TechnicianService',
 			'TechnicianModel', 'Validations', 'FormIntegrity',
 			function($scope, $location, $state, $stateParams, TechnicianService, TechnicianModel, Validations, FormIntegrity) {
@@ -52,7 +52,7 @@
 =======
 
 >>>>>>> e095b38f9fb43a8fc1e6db61259305d80f605f4a
-							$state.go('worthClark.technician.list', {
+							$state.go('reConnect.technician.list', {
 								message: 'success'
 							});
 						});
@@ -60,7 +60,7 @@
 						TechnicianService.create(vm.model).then(function() {
 							vm.formIntegrity.setPristine();
 
-							$state.go('worthClark.technician.list', {
+							$state.go('reConnect.technician.list', {
 								message: 'success'
 							});
 						});
@@ -71,7 +71,7 @@
 					vm.model = TechnicianModel({
 						user: {}
 					});
-					$state.go('worthClark.technician.list');
+					$state.go('reConnect.technician.list');
 				};
 
 				/*

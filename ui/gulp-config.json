@@ -1,11 +1,11 @@
 {
-	"production": {
-		"url": "http://api.realtydoc.co/"
-	},
-	"stage": {
-		"url": "http://api.realtydoc.co/"
-	},
-	"development": {
-		"url": "http://api.worthclarkapp.com/"
-	}
+    "production": {
+        "url": "http://api.reconnect.co/"
+    },
+    "stage": {
+        "url": "http://api.reconnect.co/"
+    },
+    "development": {
+        "url": "http://api.reconnectapp.com/"
+    }
 }

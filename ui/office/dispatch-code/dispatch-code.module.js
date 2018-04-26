@@ -1,9 +1,9 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.dispatchCode
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.dispatchCode', []);
+    /**
+     * @class reConnect.dispatchCode
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.dispatchCode', []);
 })();

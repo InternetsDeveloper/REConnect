@@ -1,16 +1,16 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.product
-	 * @memberOf worthClark
-	 */
-	angular.module('worthClark.product', [
+    /**
+     * @class reConnect.product
+     * @memberOf reConnect
+     */
+    angular.module('reConnect.product', [
 		'ngMessages',
 		'md.data.table',
 		'ngCsvImport',
-		'worthClark.utils.topSlideOut',
-		'worthClark.utils.tableSearchable',
-		'worthClark.utils.pushIn'
+		'reConnect.utils.topSlideOut',
+		'reConnect.utils.tableSearchable',
+		'reConnect.utils.pushIn'
 	]);
 })();

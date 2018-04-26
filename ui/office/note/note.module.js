@@ -1,5 +1,5 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular.module('worthClark.note', []);
+    angular.module('reConnect.note', []);
 })();

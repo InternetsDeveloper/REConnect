@@ -1,6 +1,6 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('worthClark.login', []);
+    angular
+        .module('reConnect.login', []);
 })();

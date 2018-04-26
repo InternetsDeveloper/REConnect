@@ -1,8 +1,8 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('worthClark.dispatch', [
+    angular
+        .module('reConnect.dispatch', [
 			'kendo.directives'
 		]);
 })();

@@ -1,8 +1,8 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular.module('worthClark.serviceRequest', [
-		'worthClark.utils.dateRange',
-		'worthClark.utils.dateTime'
+    angular.module('reConnect.serviceRequest', [
+		'reConnect.utils.dateRange',
+		'reConnect.utils.dateTime'
 	]);
 })();

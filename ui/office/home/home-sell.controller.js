@@ -1,24 +1,24 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	/**
-	 * @class worthClark.home.HomeSellController
-	 *
-	 * @param {Object} $mdToast Angular Material $mdToast service
-	 * @param {IScope} $scope - Angular scope interface.
-	 * @param {IStateParamsService} $stateParams - @see IStateParamsService
-	 * @param {HomeService} HomeService - @see HomeService
-	 * @param {HomeModel} HomeModel - @see HomeModel
+    /**
+     * @class reConnect.home.HomeSellController
+     *
+     * @param {Object} $mdToast Angular Material $mdToast service
+     * @param {IScope} $scope - Angular scope interface.
+     * @param {IStateParamsService} $stateParams - @see IStateParamsService
+     * @param {HomeService} HomeService - @see HomeService
+     * @param {HomeModel} HomeModel - @see HomeModel
 
-	 * @param {IState} $state - @see IState
-	 * @param {LoDashStatic} _ - @see _
-	 */
-	angular
-		.module('worthClark.home')
-		.controller('HomeSellController', [
-			function() {
-				const vm = this;
+     * @param {IState} $state - @see IState
+     * @param {LoDashStatic} _ - @see _
+     */
+    angular
+        .module('reConnect.home')
+        .controller('HomeSellController', [
+			function () {
+                const vm = this;
 
-				vm.awesome = 'yes';
+                vm.awesome = 'yes';
 			}]);
 })();
